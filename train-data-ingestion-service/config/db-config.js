@@ -12,7 +12,7 @@ const client = new MongoClient(url, {
 async function connectToDatabase() {
   await client.connect();
   const db = client.db(dbName);
-  const collection = db.collection("trainData");
+  const collection = db.collection("trainLocationData");
 
   // Create a TTL index on the timestamp field
   await collection.createIndex(

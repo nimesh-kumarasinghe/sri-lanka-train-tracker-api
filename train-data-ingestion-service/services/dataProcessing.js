@@ -3,7 +3,7 @@ const { reverseGeocode } = require("./reverseGeocoding");
 
 async function processAndSaveData(data) {
   const db = await connectToDatabase();
-  const collection = db.collection("trainData");
+  const collection = db.collection("trainLocationData");
 
   // Apply reverse geocoding
   const locationName = await reverseGeocode(
