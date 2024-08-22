@@ -6,6 +6,15 @@ const getAllEngines = async () => {
   return rows;
 };
 
+// get engine details by id
+const getEngineById = async (id) => {
+  const [rows] = await pool.query("SELECT * FROM engine WHERE engine_id = ?", [
+    id,
+  ]);
+  return rows[0];
+};
+
 module.exports = {
   getAllEngines,
+  getEngineById,
 };

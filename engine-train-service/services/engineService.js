@@ -5,6 +5,12 @@ const getAllEngines = async () => {
   return engineModel.getAllEngines();
 };
 
+// get engine details by id
+const getEngineById = async (id) => {
+  return engineModel.getEngineById(id);
+};
+
 module.exports = {
   getAllEngines,
+  getEngineById,
 };
