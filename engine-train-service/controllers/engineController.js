@@ -76,9 +76,26 @@ const updateEngine = async (req, res) => {
   }
 };
 
+// delete a engine
+const deleteEngine = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await engineService.deleteEngine(id);
+
+    if (result.affectedRows > 0) {
+      res.status(201).json({ message: "Engine deleted successfully" });
+    } else {
+      res.status(404).json({ message: "Engine not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   getAllEngines,
   getEngineById,
   createEngine,
   updateEngine,
+  deleteEngine,
 };

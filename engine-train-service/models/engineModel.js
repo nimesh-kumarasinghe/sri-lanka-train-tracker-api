@@ -69,9 +69,18 @@ const updateEngine = async (id, updates) => {
   return getEngineById(id);
 };
 
+// delete a engine
+const deleteEngine = async (id) => {
+  const [result] = await pool.query("DELETE FROM engine WHERE engine_id = ?", [
+    id,
+  ]);
+  return result;
+};
+
 module.exports = {
   getAllEngines,
   getEngineById,
   createEngine,
   updateEngine,
+  deleteEngine,
 };

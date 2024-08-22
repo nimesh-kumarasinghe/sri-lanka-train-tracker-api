@@ -44,9 +44,15 @@ const updateEngine = async (id, updates) => {
   return engineModel.updateEngine(id, updates);
 };
 
+// delete a engine
+const deleteEngine = async (id) => {
+  return engineModel.deleteEngine(id);
+};
+
 module.exports = {
   getAllEngines,
   getEngineById,
   createEngine,
   updateEngine,
+  deleteEngine,
 };
