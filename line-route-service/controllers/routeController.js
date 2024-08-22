@@ -25,7 +25,24 @@ const getRouteById = async (req, res) => {
   }
 };
 
+// create a route
+const createRoute = async (req, res) => {
+  const { route_code, start_station, end_station, distance } = req.body;
+  try {
+    const newRoute = await routeService.createRoute(
+      route_code,
+      start_station,
+      end_station,
+      distance
+    );
+    res.status(201).json(newRoute);
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   getAllRoutes,
   getRouteById,
+  createRoute,
 };

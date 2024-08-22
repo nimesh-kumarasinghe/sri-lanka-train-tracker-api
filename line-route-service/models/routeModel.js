@@ -22,7 +22,32 @@ const getRouteById = async (id) => {
   }
 };
 
+// create a route
+const createRoute = async (
+  route_code,
+  start_station,
+  end_station,
+  distance
+) => {
+  try {
+    const [result] = await pool.query(
+      "INSERT INTO route(`route_code`, `start_station`, `end_station`, `distance`) VALUES (?, ?, ?, ?)",
+      [route_code, start_station, end_station, distance]
+    );
+    return {
+      id: result.route_id,
+      route_code,
+      start_station,
+      end_station,
+      distance,
+    };
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   getAllRoutes,
   getRouteById,
+  createRoute,
 };
