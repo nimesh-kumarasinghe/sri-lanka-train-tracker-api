@@ -25,7 +25,43 @@ const getEngineById = async (req, res) => {
   }
 };
 
+// create a engine
+const createEngine = async (req, res) => {
+  const {
+    engine_id,
+    iotdevice_id,
+    train_id,
+    engine_class,
+    manufacturer_year,
+    engine_type,
+    fuel_type,
+    horsepower,
+    torque_nm,
+    cylinders,
+    weight_kg,
+  } = req.body;
+  try {
+    const newEngine = await engineService.createEngine(
+      engine_id,
+      iotdevice_id,
+      train_id,
+      engine_class,
+      manufacturer_year,
+      engine_type,
+      fuel_type,
+      horsepower,
+      torque_nm,
+      cylinders,
+      weight_kg
+    );
+    res.status(201).json(newEngine);
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   getAllEngines,
   getEngineById,
+  createEngine,
 };
