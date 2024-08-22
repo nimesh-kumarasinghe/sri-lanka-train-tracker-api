@@ -36,8 +36,42 @@ const createLine = async (req, res) => {
   }
 };
 
+// update line details
+const updateLine = async (req, res) => {
+  const { id } = req.params;
+  const updates = req.body;
+  try {
+    const updateLine = await lineService.updateLine(id, updates);
+    if (updateLine) {
+      res.json(updateLine);
+    } else {
+      res.status(404).json({ message: "Line not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+// delete a line
+const deleteLine = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await lineService.deleteLine(id);
+
+    if (result.affectedRows > 0) {
+      res.status(201).json({ message: "Line deleted successfully" });
+    } else {
+      res.status(404).json({ message: "Line not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   getAllLines,
   getLineById,
   createLine,
+  updateLine,
+  deleteLine,
 };
