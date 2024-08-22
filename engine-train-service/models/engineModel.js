@@ -59,8 +59,19 @@ const createEngine = async (
   };
 };
 
+// update engine details
+const updateEngine = async (id, updates) => {
+  const [result] = await pool.query("UPDATE engine SET ? WHERE engine_id = ?", [
+    updates,
+    id,
+  ]);
+  if (result.affectedRows === 0) return null;
+  return getEngineById(id);
+};
+
 module.exports = {
   getAllEngines,
   getEngineById,
   createEngine,
+  updateEngine,
 };

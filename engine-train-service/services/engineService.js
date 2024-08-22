@@ -39,8 +39,14 @@ const createEngine = async (
   );
 };
 
+// update engine details
+const updateEngine = async (id, updates) => {
+  return engineModel.updateEngine(id, updates);
+};
+
 module.exports = {
   getAllEngines,
   getEngineById,
   createEngine,
+  updateEngine,
 };

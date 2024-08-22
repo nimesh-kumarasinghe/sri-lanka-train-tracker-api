@@ -60,8 +60,25 @@ const createEngine = async (req, res) => {
   }
 };
 
+// update engine details
+const updateEngine = async (req, res) => {
+  const { id } = req.params;
+  const updates = req.body;
+  try {
+    const updateEngine = await engineService.updateEngine(id, updates);
+    if (updateEngine) {
+      res.json(updateEngine);
+    } else {
+      res.status(404).json({ message: "Engine not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   getAllEngines,
   getEngineById,
   createEngine,
+  updateEngine,
 };
