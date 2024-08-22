@@ -1,5 +1,6 @@
 const trainService = require("../services/trainService");
 
+// get all train detail
 const getAllTrains = async (req, res) => {
   try {
     const trains = await trainService.getAllTrains();
@@ -9,6 +10,7 @@ const getAllTrains = async (req, res) => {
   }
 };
 
+// get train details by id
 const getTrainById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -23,6 +25,7 @@ const getTrainById = async (req, res) => {
   }
 };
 
+// create a train
 const createTrain = async (req, res) => {
   const {
     train_id,
@@ -51,8 +54,25 @@ const createTrain = async (req, res) => {
   }
 };
 
+// update train details
+const updateTrain = async (req, res) => {
+  const { id } = req.params;
+  const updates = req.body;
+  try {
+    const updatedTrain = await trainService.updateTrain(id, updates);
+    if (updatedTrain) {
+      res.json(updatedTrain);
+    } else {
+      res.status(404).json({ message: "Train not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   getAllTrains,
   getTrainById,
   createTrain,
+  updateTrain,
 };

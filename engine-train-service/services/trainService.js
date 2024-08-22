@@ -30,8 +30,13 @@ const createTrain = async (
   );
 };
 
+const updateTrain = async (id, updates) => {
+  return trainModel.updateTrain(id, updates);
+};
+
 module.exports = {
   getAllTrains,
   getTrainById,
   createTrain,
+  updateTrain,
 };

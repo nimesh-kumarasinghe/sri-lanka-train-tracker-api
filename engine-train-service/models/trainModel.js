@@ -47,8 +47,18 @@ const createTrain = async (
   };
 };
 
+const updateTrain = async (id, updates) => {
+  const [result] = await pool.query("UPDATE train SET ? WHERE train_id = ?", [
+    updates,
+    id,
+  ]);
+  if (result.affectedRows === 0) return null;
+  return getTrainById(id);
+};
+
 module.exports = {
   getAllTrains,
   getTrainById,
   createTrain,
+  updateTrain,
 };
