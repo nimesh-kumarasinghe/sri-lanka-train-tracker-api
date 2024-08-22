@@ -1,0 +1,11 @@
+{
+  "name": "trip-schedule-station-service",
+  "version": "1.0.0",
+  "description": "Handling Trips, Schedules and Stations from this service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "K A N D Kumarasinghe",
+  "license": "ISC"
+}
