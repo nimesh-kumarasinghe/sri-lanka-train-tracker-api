@@ -1,10 +1,12 @@
 const { pool } = require("../config/dbConfig");
 
+// get all train details
 const getAllTrains = async () => {
   const [rows] = await pool.query("SELECT * FROM train");
   return rows;
 };
 
+// get train details by id
 const getTrainById = async (id) => {
   const [rows] = await pool.query("SELECT * FROM train WHERE train_id = ?", [
     id,
@@ -12,6 +14,7 @@ const getTrainById = async (id) => {
   return rows[0];
 };
 
+// create a train
 const createTrain = async (
   train_id,
   route_id,
@@ -47,6 +50,7 @@ const createTrain = async (
   };
 };
 
+// update train details
 const updateTrain = async (id, updates) => {
   const [result] = await pool.query("UPDATE train SET ? WHERE train_id = ?", [
     updates,
@@ -56,9 +60,18 @@ const updateTrain = async (id, updates) => {
   return getTrainById(id);
 };
 
+// delete a train
+const deleteTrain = async (id) => {
+  const [result] = await pool.query("DELETE FROM train WHERE train_id = ?", [
+    id,
+  ]);
+  return result;
+};
+
 module.exports = {
   getAllTrains,
   getTrainById,
   createTrain,
   updateTrain,
+  deleteTrain,
 };

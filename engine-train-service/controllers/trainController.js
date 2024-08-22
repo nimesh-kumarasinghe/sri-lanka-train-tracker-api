@@ -1,6 +1,6 @@
 const trainService = require("../services/trainService");
 
-// get all train detail
+// get all train details
 const getAllTrains = async (req, res) => {
   try {
     const trains = await trainService.getAllTrains();
@@ -70,9 +70,26 @@ const updateTrain = async (req, res) => {
   }
 };
 
+// delete a train
+const deleteTrain = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await trainService.deleteTrain(id);
+
+    if (result.affectedRows > 0) {
+      res.status(201).json({ message: "Train deleted successfully" });
+    } else {
+      res.status(404).json({ message: "Train not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   getAllTrains,
   getTrainById,
   createTrain,
   updateTrain,
+  deleteTrain,
 };

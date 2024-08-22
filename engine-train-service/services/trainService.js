@@ -1,13 +1,16 @@
 const trainModel = require("../models/trainModel");
 
+// get all train details
 const getAllTrains = async () => {
   return trainModel.getAllTrains();
 };
 
+// get train details by id
 const getTrainById = async (id) => {
   return trainModel.getTrainById(id);
 };
 
+// create a train
 const createTrain = async (
   train_id,
   route_id,
@@ -30,8 +33,14 @@ const createTrain = async (
   );
 };
 
+// update train details
 const updateTrain = async (id, updates) => {
   return trainModel.updateTrain(id, updates);
+};
+
+// delete a train
+const deleteTrain = async (id) => {
+  return trainModel.deleteTrain(id);
 };
 
 module.exports = {
@@ -39,4 +48,5 @@ module.exports = {
   getTrainById,
   createTrain,
   updateTrain,
+  deleteTrain,
 };
