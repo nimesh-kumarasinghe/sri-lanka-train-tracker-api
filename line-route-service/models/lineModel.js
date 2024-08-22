@@ -10,6 +10,19 @@ const getAllLines = async () => {
   }
 };
 
+// get line details by id
+const getLineById = async (id) => {
+  try {
+    const [rows] = await pool.query("SELECT * FROM line WHERE line_id = ?", [
+      id,
+    ]);
+    return rows[0];
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   getAllLines,
+  getLineById,
 };
