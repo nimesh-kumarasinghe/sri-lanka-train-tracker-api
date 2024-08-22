@@ -25,7 +25,19 @@ const getLineById = async (req, res) => {
   }
 };
 
+// create a line
+const createLine = async (req, res) => {
+  const { line_id, line_name } = req.body;
+  try {
+    const newLine = await lineService.createLine(line_id, line_name);
+    res.status(201).json(newLine);
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   getAllLines,
   getLineById,
+  createLine,
 };

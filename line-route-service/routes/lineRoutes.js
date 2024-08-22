@@ -4,5 +4,6 @@ const lineController = require("../controllers/lineController");
 
 router.get("/lines", lineController.getAllLines);
 router.get("/lines/:id", lineController.getLineById);
+router.post("/lines", lineController.createLine);
 
 module.exports = router;

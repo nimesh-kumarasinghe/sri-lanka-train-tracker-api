@@ -22,7 +22,24 @@ const getLineById = async (id) => {
   }
 };
 
+// create a line
+const createLine = async (line_id, line_name) => {
+  try {
+    const [result] = await pool.query(
+      "INSERT INTO line(line_id, line_name) VALUES (?, ?)",
+      [line_id, line_name]
+    );
+    return {
+      line_id: result.line_id,
+      line_name,
+    };
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   getAllLines,
   getLineById,
+  createLine,
 };
