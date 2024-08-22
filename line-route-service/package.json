@@ -4,7 +4,7 @@
   "description": "Line and Route Microservice",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "K A N D Kumarasinghe",
   "license": "ISC",
@@ -13,5 +13,9 @@
     "express": "^4.19.2",
     "morgan": "^1.10.0",
     "mysql2": "^3.11.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
   }
 }
