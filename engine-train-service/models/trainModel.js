@@ -12,7 +12,43 @@ const getTrainById = async (id) => {
   return rows[0];
 };
 
+const createTrain = async (
+  train_id,
+  route_id,
+  train_name,
+  no_of_boxes,
+  passenger_capacity,
+  first_class,
+  second_class,
+  third_class
+) => {
+  const [result] = await pool.query(
+    "INSERT INTO train (train_id, route_id, train_name, no_of_boxes, passenger_capacity, first_class, second_class, third_class) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+    [
+      train_id,
+      route_id,
+      train_name,
+      no_of_boxes,
+      passenger_capacity,
+      first_class,
+      second_class,
+      third_class,
+    ]
+  );
+  return {
+    train_id: result.train_id,
+    route_id,
+    train_name,
+    no_of_boxes,
+    passenger_capacity,
+    first_class,
+    second_class,
+    third_class,
+  };
+};
+
 module.exports = {
   getAllTrains,
   getTrainById,
+  createTrain,
 };

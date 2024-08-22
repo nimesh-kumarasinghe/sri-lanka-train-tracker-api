@@ -23,7 +23,36 @@ const getTrainById = async (req, res) => {
   }
 };
 
+const createTrain = async (req, res) => {
+  const {
+    train_id,
+    route_id,
+    train_name,
+    no_of_boxes,
+    passenger_capacity,
+    first_class,
+    second_class,
+    third_class,
+  } = req.body;
+  try {
+    const newTrain = await trainService.createTrain(
+      train_id,
+      route_id,
+      train_name,
+      no_of_boxes,
+      passenger_capacity,
+      first_class,
+      second_class,
+      third_class
+    );
+    res.status(201).json(newTrain);
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   getAllTrains,
   getTrainById,
+  createTrain,
 };
