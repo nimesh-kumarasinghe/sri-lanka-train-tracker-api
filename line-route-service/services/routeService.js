@@ -25,8 +25,20 @@ const createRoute = async (
   );
 };
 
+// update route details
+const updateRoute = async (id, updates) => {
+  return routeModel.updateRoute(id, updates);
+};
+
+// delete a route
+const deleteRoute = async (id) => {
+  return routeModel.deleteRoute(id);
+};
+
 module.exports = {
   getAllRoutes,
   getRouteById,
   createRoute,
+  updateRoute,
+  deleteRoute,
 };

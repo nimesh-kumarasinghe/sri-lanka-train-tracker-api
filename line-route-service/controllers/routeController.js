@@ -41,8 +41,42 @@ const createRoute = async (req, res) => {
   }
 };
 
+// update route details
+const updateRoute = async (req, res) => {
+  const { id } = req.params;
+  const updates = req.body;
+  try {
+    const updateRoute = await routeService.updateRoute(id, updates);
+    if (updateRoute) {
+      res.json(updateRoute);
+    } else {
+      res.status(404).json({ message: "Route not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+// delete a route
+const deleteRoute = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await routeService.deleteRoute(id);
+
+    if (result.affectedRows > 0) {
+      res.status(201).json({ message: "Route deleted successfully" });
+    } else {
+      res.status(404).json({ message: "Route not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   getAllRoutes,
   getRouteById,
   createRoute,
+  updateRoute,
+  deleteRoute,
 };

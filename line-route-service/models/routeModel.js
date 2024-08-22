@@ -46,8 +46,36 @@ const createRoute = async (
   }
 };
 
+// update route details
+const updateRoute = async (id, updates) => {
+  try {
+    const [result] = await pool.query("UPDATE route SET ? WHERE route_id = ?", [
+      updates,
+      id,
+    ]);
+    if (result.affectedRows === 0) return null;
+    return getRouteById(id);
+  } catch (err) {
+    throw err;
+  }
+};
+
+// delete a route
+const deleteRoute = async (id) => {
+  try {
+    const [result] = await pool.query("DELETE FROM route WHERE route_id = ?", [
+      id,
+    ]);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   getAllRoutes,
   getRouteById,
   createRoute,
+  updateRoute,
+  deleteRoute,
 };
