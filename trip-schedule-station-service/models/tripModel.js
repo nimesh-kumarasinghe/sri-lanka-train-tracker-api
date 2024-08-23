@@ -22,7 +22,36 @@ const getTripById = async (id) => {
   }
 };
 
+// create a trip
+const createTrip = async (
+  trip_id,
+  route_id,
+  train_id,
+  trip_type,
+  duration,
+  max_speed_kmh
+) => {
+  try {
+    const [result] = await pool.query(
+      "INSERT INTO trip(trip_id, route_id, train_id, trip_type, duration, max_speed_kmh) VALUES (?,?,?,?,?,?)",
+      [trip_id, route_id, train_id, trip_type, duration, max_speed_kmh]
+    );
+    return {
+      trip_id: result.trip_id,
+      trip_id,
+      route_id,
+      train_id,
+      trip_type,
+      duration,
+      max_speed_kmh,
+    };
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   getAllTrips,
   getTripById,
+  createTrip,
 };

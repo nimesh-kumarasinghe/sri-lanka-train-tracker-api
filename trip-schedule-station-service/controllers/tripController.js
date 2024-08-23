@@ -25,7 +25,27 @@ const getTripById = async (req, res) => {
   }
 };
 
+// create a trip
+const createTrip = async (req, res) => {
+  const { trip_id, route_id, train_id, trip_type, duration, max_speed_kmh } =
+    req.body;
+  try {
+    const newTrip = await tripService.createTrip(
+      trip_id,
+      route_id,
+      train_id,
+      trip_type,
+      duration,
+      max_speed_kmh
+    );
+    res.status(201).json(newTrip);
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   getAllTrips,
   getTripById,
+  createTrip,
 };

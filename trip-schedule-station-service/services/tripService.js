@@ -10,7 +10,27 @@ const getTripById = async (id) => {
   return tripModel.getTripById(id);
 };
 
+// create a trip
+const createTrip = async (
+  trip_id,
+  route_id,
+  train_id,
+  trip_type,
+  duration,
+  max_speed_kmh
+) => {
+  return tripModel.createTrip(
+    trip_id,
+    route_id,
+    train_id,
+    trip_type,
+    duration,
+    max_speed_kmh
+  );
+};
+
 module.exports = {
   getAllTrips,
   getTripById,
+  createTrip,
 };
