@@ -25,7 +25,41 @@ const getScheduleById = async (req, res) => {
   }
 };
 
+// create a schedule
+const createSchedule = async (req, res) => {
+  const { trip_id, availability, start_time, end_time } = req.body;
+  try {
+    const newSchedule = await scheduleService.createSchedule(
+      trip_id,
+      availability,
+      start_time,
+      end_time
+    );
+    res.status(201).json(newSchedule);
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+// update schedule details
+const updateSchedule = async (req, res) => {
+  const { id } = req.params;
+  const updates = req.body;
+  try {
+    const updateSchedule = await scheduleService.updateSchedule(id, updates);
+    if (updateSchedule) {
+      res.json(updateSchedule);
+    } else {
+      res.status(404).json({ message: "Schedule not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   getAllSchedules,
   getScheduleById,
+  createSchedule,
+  updateSchedule,
 };
