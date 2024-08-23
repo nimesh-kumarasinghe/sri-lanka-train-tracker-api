@@ -1,16 +1,30 @@
-// src/server.js
 const express = require("express");
 const morgan = require("morgan");
+const fs = require("fs");
+const path = require("path");
 const apiGatewayRoutes = require("./routes/apiGatewayRoutes");
-//const { setupLogging } = require("./config/gatewayConfig");
+require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
+
+// Ensure the logs directory exists
+const logDirectory = path.join(__dirname, "logs");
+if (!fs.existsSync(logDirectory)) {
+  fs.mkdirSync(logDirectory);
+}
+
+// Create a write stream for logging to a file
+const accessLogStream = fs.createWriteStream(
+  path.join(logDirectory, "app.log"),
+  { flags: "a" }
+);
 
 app.use(express.json());
-app.use(morgan(process.env.LOG_LEVEL || "combined")); // Logging
 
-//setupLogging(); // Custom logging setup
+// Use morgan to log requests to the console and to the log file
+app.use(morgan(process.env.LOG_LEVEL, { stream: accessLogStream })); // Log to file
+app.use(morgan(process.env.LOG_LEVEL)); // Log to console
 
 app.use("/api", apiGatewayRoutes);
 

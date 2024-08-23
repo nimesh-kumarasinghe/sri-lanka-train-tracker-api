@@ -1,4 +1,3 @@
-// src/services/authService.js
 const jwt = require("jsonwebtoken");
 const { authConfig } = require("../config/gatewayConfig"); // Update with your actual path
 
