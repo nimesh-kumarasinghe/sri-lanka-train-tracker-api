@@ -47,8 +47,36 @@ const assignStation = async (
   }
 };
 
+// update a assigned station for a trip
+const updateAssignStation = async (id, updates) => {
+  try {
+    const [result] = await pool.query(
+      "UPDATE trip_station SET ? WHERE id = ?",
+      [updates, id]
+    );
+    if (result.affectedRows === 0) return null;
+    return { message: "Station updated successfully" };
+  } catch (err) {
+    throw err;
+  }
+};
+
+// delete a assigned station for a trip
+const deleteAssignStation = async (id) => {
+  try {
+    const [result] = await pool.query("DELETE FROM trip_station WHERE id = ?", [
+      id,
+    ]);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   getAllTripStations,
   getStationByTripId,
   assignStation,
+  updateAssignStation,
+  deleteAssignStation,
 };

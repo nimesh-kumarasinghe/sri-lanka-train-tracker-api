@@ -41,8 +41,45 @@ const assignStation = async (req, res) => {
   }
 };
 
+// update a assigned station for a trip
+const updateAssignStation = async (req, res) => {
+  const { id } = req.params;
+  const updates = req.body;
+  try {
+    const updateAssignStation =
+      await tripStationAssignService.updateAssignStation(id, updates);
+    if (updateAssignStation) {
+      res.json(updateAssignStation);
+    } else {
+      res.status(404).json({ message: "Data not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+// delete a assigned station for a trip
+const deleteAssignStation = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await tripStationAssignService.deleteAssignStation(id);
+
+    if (result.affectedRows > 0) {
+      res
+        .status(201)
+        .json({ message: "Assigned station deleted successfully" });
+    } else {
+      res.status(404).json({ message: "Station not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   getAllTripStations,
   getStationByTripId,
   assignStation,
+  updateAssignStation,
+  deleteAssignStation,
 };

@@ -25,8 +25,20 @@ const assignStation = async (
   );
 };
 
+// update a assigned station for a trip
+const updateAssignStation = async (id, updates) => {
+  return tripStationAssignModel.updateAssignStation(id, updates);
+};
+
+// delete a assigned station for a trip
+const deleteAssignStation = async (id) => {
+  return tripStationAssignModel.deleteAssignStation(id);
+};
+
 module.exports = {
   getAllTripStations,
   getStationByTripId,
   assignStation,
+  updateAssignStation,
+  deleteAssignStation,
 };
