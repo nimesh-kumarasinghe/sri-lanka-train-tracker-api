@@ -1,9 +1,9 @@
 const axios = require("axios");
 const config = require("../config/gatewayConfig");
 
-const getAllLines = async (req, res) => {
+const getAllRoutes = async (req, res) => {
   try {
-    const response = await axios.get(`${config.lineRouteServiceUrl}/lines`, {
+    const response = await axios.get(`${config.lineRouteServiceUrl}/routes`, {
       headers: {
         Authorization: req.headers.authorization,
       },
@@ -14,12 +14,12 @@ const getAllLines = async (req, res) => {
   }
 };
 
-// Get line by ID
-const getLineById = async (req, res) => {
+// Get route by ID
+const getRouteById = async (req, res) => {
   const { id } = req.params;
   try {
     const response = await axios.get(
-      `${config.lineRouteServiceUrl}/lines/${id}`,
+      `${config.lineRouteServiceUrl}/routes/${id}`,
       {
         headers: {
           Authorization: req.headers.authorization,
@@ -32,11 +32,11 @@ const getLineById = async (req, res) => {
   }
 };
 
-// Create a new line
-const createLine = async (req, res) => {
+// Create a new route
+const createRoute = async (req, res) => {
   try {
     const response = await axios.post(
-      `${config.lineRouteServiceUrl}/lines`,
+      `${config.lineRouteServiceUrl}/routes`,
       req.body,
       {
         headers: {
@@ -50,12 +50,12 @@ const createLine = async (req, res) => {
   }
 };
 
-// Update an existing line
-const updateLine = async (req, res) => {
+// Update an existing route
+const updateRoute = async (req, res) => {
   const { id } = req.params;
   try {
     const response = await axios.put(
-      `${config.lineRouteServiceUrl}/lines/${id}`,
+      `${config.lineRouteServiceUrl}/routes/${id}`,
       req.body,
       {
         headers: {
@@ -69,28 +69,28 @@ const updateLine = async (req, res) => {
   }
 };
 
-// Delete a line
-const deleteLine = async (req, res) => {
+// Delete a route
+const deleteRoute = async (req, res) => {
   const { id } = req.params;
   try {
     const response = await axios.delete(
-      `${config.lineRouteServiceUrl}/lines/${id}`,
+      `${config.lineRouteServiceUrl}/routes/${id}`,
       {
         headers: {
           Authorization: req.headers.authorization,
         },
       }
     );
-    res.status(200).json({ message: "Line deleted" });
+    res.status(200).json({ message: "Route deleted" });
   } catch (error) {
     res.status(error.response?.status || 500).json({ message: error.message });
   }
 };
 
 module.exports = {
-  getAllLines,
-  getLineById,
-  createLine,
-  updateLine,
-  deleteLine,
+  getAllRoutes,
+  getRouteById,
+  createRoute,
+  updateRoute,
+  deleteRoute,
 };
