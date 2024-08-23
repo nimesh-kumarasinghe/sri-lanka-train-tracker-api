@@ -57,9 +57,26 @@ const updateSchedule = async (req, res) => {
   }
 };
 
+// delete a schedule
+const deleteSchedule = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await scheduleService.deleteSchedule(id);
+
+    if (result.affectedRows > 0) {
+      res.status(201).json({ message: "Schedule deleted successfully" });
+    } else {
+      res.status(404).json({ message: "Schedule not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   getAllSchedules,
   getScheduleById,
   createSchedule,
   updateSchedule,
+  deleteSchedule,
 };

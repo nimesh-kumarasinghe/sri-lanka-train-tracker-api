@@ -25,9 +25,15 @@ const updateSchedule = async (id, updates) => {
   return scheduleModel.updateSchedule(id, updates);
 };
 
+// delete a schedule
+const deleteSchedule = async (id) => {
+  return scheduleModel.deleteSchedule(id);
+};
+
 module.exports = {
   getAllSchedules,
   getScheduleById,
   createSchedule,
   updateSchedule,
+  deleteSchedule,
 };

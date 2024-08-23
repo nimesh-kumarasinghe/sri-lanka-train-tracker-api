@@ -56,9 +56,23 @@ const updateSchedule = async (id, updates) => {
   }
 };
 
+// delete a schedule
+const deleteSchedule = async (id) => {
+  try {
+    const [result] = await pool.query(
+      "DELETE FROM schedule WHERE schedule_id = ?",
+      [id]
+    );
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   getAllSchedules,
   getScheduleById,
   createSchedule,
   updateSchedule,
+  deleteSchedule,
 };
