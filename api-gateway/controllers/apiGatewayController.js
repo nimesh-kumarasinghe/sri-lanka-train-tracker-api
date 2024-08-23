@@ -1,4 +1,3 @@
-// src/controllers/apiGatewayController.js
 const axios = require("axios");
 const config = require("../config/gatewayConfig");
 const authService = require("../services/authService");
@@ -93,41 +92,10 @@ const deleteUser = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
-const getAllTrains = async (req, res) => {
-  try {
-    const data = await sendRequest(
-      `${config.engineTrainServiceUrl}/trains`,
-      "GET"
-    );
-    res.json(data);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-const createTrain = async (req, res) => {
-  try {
-    const data = await sendRequest(
-      `${config.engineTrainServiceUrl}/trains`,
-      "POST",
-      req.body
-    );
-    res.json(data);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-// Define other methods similarly...
-
 module.exports = {
   register,
   login,
   getUser,
   updateUser,
   deleteUser,
-  getAllTrains,
-  createTrain,
-  // Other methods...
 };

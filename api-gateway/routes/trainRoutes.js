@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const apiGatewayController = require("../controllers/apiGatewayController");
+const trainController = require("../controllers/trainController");
 
-router.get("/", apiGatewayController.getAllTrains);
-//router.get("/trains/:id", apiGatewayController.getTrainById);
-router.post("/trains", apiGatewayController.createTrain);
-//router.put("/trains/:id", apiGatewayController.updateTrain);
-//router.delete("/trains/:id", apiGatewayController.deleteTrain);
+router.get("/", trainController.getAllTrains);
+router.get("/:id", trainController.getTrainById);
+router.post("/", trainController.createTrain);
+router.put("/:id", trainController.updateTrain);
+router.delete("/:id", trainController.deleteTrain);
 
 module.exports = router;

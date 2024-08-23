@@ -4,7 +4,7 @@ const authMiddleware = require("../middlewares/authMiddleware");
 
 // Public Routes
 const userRoutes = require("./userPublicRoutes");
-router.use("/user", userRoutes);
+router.use("/", userRoutes);
 
 // Protected Routes
 const userPrivateRoutes = require("./userPrivateRoutes");
