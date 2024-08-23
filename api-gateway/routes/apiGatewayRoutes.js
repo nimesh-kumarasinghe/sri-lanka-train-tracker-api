@@ -10,12 +10,16 @@ router.use("/", userRoutes);
 const userPrivateRoutes = require("./userPrivateRoutes");
 const trainRoutes = require("./trainRoutes");
 const engineRoutes = require("./engineRoutes");
+const stationRoutes = require("./stationRoutes");
+const tripRoutes = require("./tripRoutes");
 // const tripScheduleRoutes = require("./tripScheduleRoutes");
 // const lineRouteRoutes = require("./lineRouteRoutes");
 
 router.use("/users", authMiddleware.verifyToken, userPrivateRoutes);
 router.use("/trains", authMiddleware.verifyToken, trainRoutes);
 router.use("/engines", authMiddleware.verifyToken, engineRoutes);
+router.use("/stations", authMiddleware.verifyToken, stationRoutes);
+router.use("/trips", authMiddleware.verifyToken, tripRoutes);
 // router.use("/trip-schedule", authMiddleware.verifyToken, tripScheduleRoutes);
 // router.use("/line-route", authMiddleware.verifyToken, lineRouteRoutes);
 
