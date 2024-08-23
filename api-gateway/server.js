@@ -8,13 +8,13 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT;
 
-// Ensure the logs directory exists
+// ensure the logs directory exists
 const logDirectory = path.join(__dirname, "logs");
 if (!fs.existsSync(logDirectory)) {
   fs.mkdirSync(logDirectory);
 }
 
-// Create a write stream for logging to a file
+// write stream for logging to a file
 const accessLogStream = fs.createWriteStream(
   path.join(logDirectory, "app.log"),
   { flags: "a" }
@@ -22,9 +22,9 @@ const accessLogStream = fs.createWriteStream(
 
 app.use(express.json());
 
-// Use morgan to log requests to the console and to the log file
-app.use(morgan(process.env.LOG_LEVEL, { stream: accessLogStream })); // Log to file
-app.use(morgan(process.env.LOG_LEVEL)); // Log to console
+// log requests to the console and to the log file
+app.use(morgan(process.env.LOG_LEVEL, { stream: accessLogStream })); // Log file
+app.use(morgan(process.env.LOG_LEVEL)); // Log console
 
 app.use("/api", apiGatewayRoutes);
 
