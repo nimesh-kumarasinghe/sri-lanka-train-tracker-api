@@ -16,8 +16,6 @@ const scheduleRoutes = require("./scheduleRoutes");
 const assignStationRoutes = require("./assignStationRoutes");
 const lineRoutes = require("./lineRoutes");
 const routeRoutes = require("./routeRoutes");
-// const tripScheduleRoutes = require("./tripScheduleRoutes");
-// const lineRouteRoutes = require("./lineRouteRoutes");
 
 router.use("/users", authMiddleware.verifyToken, userPrivateRoutes);
 router.use("/trains", authMiddleware.verifyToken, trainRoutes);
@@ -28,7 +26,5 @@ router.use("/schedules", authMiddleware.verifyToken, scheduleRoutes);
 router.use("/trip-stations", authMiddleware.verifyToken, assignStationRoutes);
 router.use("/lines", authMiddleware.verifyToken, lineRoutes);
 router.use("/routes", authMiddleware.verifyToken, routeRoutes);
-// router.use("/trip-schedule", authMiddleware.verifyToken, tripScheduleRoutes);
-// router.use("/line-route", authMiddleware.verifyToken, lineRouteRoutes);
 
 module.exports = router;
