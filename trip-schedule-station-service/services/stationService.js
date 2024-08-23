@@ -25,9 +25,15 @@ const updateStation = async (id, updates) => {
   return stationModel.updateStation(id, updates);
 };
 
+// delete a station
+const deleteStation = async (id) => {
+  return stationModel.deleteStation(id);
+};
+
 module.exports = {
   getAllStations,
   getStationById,
   createStation,
   updateStation,
+  deleteStation,
 };

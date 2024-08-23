@@ -6,5 +6,6 @@ router.get("/stations", stationController.getAllStations);
 router.get("/stations/:id", stationController.getStationById);
 router.post("/stations", stationController.createStation);
 router.put("/stations/:id", stationController.updateStation);
+router.delete("/stations/:id", stationController.deleteStation);
 
 module.exports = router;

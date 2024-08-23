@@ -56,9 +56,23 @@ const updateStation = async (id, updates) => {
   }
 };
 
+// delete a station
+const deleteStation = async (id) => {
+  try {
+    const [result] = await pool.query(
+      "DELETE FROM station WHERE station_id = ?",
+      [id]
+    );
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   getAllStations,
   getStationById,
   createStation,
   updateStation,
+  deleteStation,
 };

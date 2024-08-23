@@ -57,9 +57,26 @@ const updateStation = async (req, res) => {
   }
 };
 
+// delete a station
+const deleteStation = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await stationService.deleteStation(id);
+
+    if (result.affectedRows > 0) {
+      res.status(201).json({ message: "Station deleted successfully" });
+    } else {
+      res.status(404).json({ message: "Station not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   getAllStations,
   getStationById,
   createStation,
   updateStation,
+  deleteStation,
 };
