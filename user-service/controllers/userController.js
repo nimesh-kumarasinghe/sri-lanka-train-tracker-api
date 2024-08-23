@@ -5,10 +5,10 @@ const encryptionUtils = require("../utils/encryptionUtils");
 const register = async (req, res) => {
   try {
     const { user_id, password, role } = req.body;
-    const hashedPassword = await encryptionUtils.hashPassword(password);
+    //const hashedPassword = await encryptionUtils.hashPassword(password);
     const result = await userModel.createUser({
       user_id,
-      password: hashedPassword,
+      password,
       role,
     });
     res
