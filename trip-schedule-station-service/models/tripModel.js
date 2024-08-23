@@ -50,8 +50,36 @@ const createTrip = async (
   }
 };
 
+// update trip details
+const updateTrip = async (id, updates) => {
+  try {
+    const [result] = await pool.query("UPDATE trip SET ? WHERE trip_id = ?", [
+      updates,
+      id,
+    ]);
+    if (result.affectedRows === 0) return null;
+    return getTripById(id);
+  } catch (err) {
+    throw err;
+  }
+};
+
+// delete a trip
+const deleteTrip = async (id) => {
+  try {
+    const [result] = await pool.query("DELETE FROM trip WHERE trip_id = ?", [
+      id,
+    ]);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   getAllTrips,
   getTripById,
   createTrip,
+  updateTrip,
+  deleteTrip,
 };

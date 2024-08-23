@@ -44,8 +44,42 @@ const createTrip = async (req, res) => {
   }
 };
 
+// update trip details
+const updateTrip = async (req, res) => {
+  const { id } = req.params;
+  const updates = req.body;
+  try {
+    const updateTrip = await tripService.updateTrip(id, updates);
+    if (updateTrip) {
+      res.json(updateTrip);
+    } else {
+      res.status(404).json({ message: "Trip not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+// delete a trip
+const deleteTrip = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await tripService.deleteTrip(id);
+
+    if (result.affectedRows > 0) {
+      res.status(201).json({ message: "Trip deleted successfully" });
+    } else {
+      res.status(404).json({ message: "Trip not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   getAllTrips,
   getTripById,
   createTrip,
+  updateTrip,
+  deleteTrip,
 };

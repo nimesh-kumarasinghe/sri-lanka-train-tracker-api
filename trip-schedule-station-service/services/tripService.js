@@ -29,8 +29,20 @@ const createTrip = async (
   );
 };
 
+// update trip details
+const updateTrip = async (id, updates) => {
+  return tripModel.updateTrip(id, updates);
+};
+
+// delete a trip
+const deleteTrip = async (id) => {
+  return tripModel.deleteTrip(id);
+};
+
 module.exports = {
   getAllTrips,
   getTripById,
   createTrip,
+  updateTrip,
+  deleteTrip,
 };
