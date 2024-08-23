@@ -17,7 +17,7 @@ const generateToken = (user) => {
 
 // create a user
 const register = async (user_id, password, role) => {
-  password = await hashPassword(password);
+  //password = await hashPassword(password);
   return userModel.register(user_id, password, role);
 };
 
