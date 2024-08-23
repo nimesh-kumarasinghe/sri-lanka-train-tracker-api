@@ -23,7 +23,32 @@ const getStationByTripId = async (id) => {
   }
 };
 
+// assign a station for a trip
+const assignStation = async (
+  trip_id,
+  station_id,
+  arrival_time,
+  departure_time
+) => {
+  try {
+    const [result] = await pool.query(
+      "INSERT INTO trip_station(trip_id, station_id, arrival_time, departure_time) VALUES (?, ?, ?, ?)",
+      [trip_id, station_id, arrival_time, departure_time]
+    );
+    return {
+      trip_id: result.trip_id,
+      trip_id,
+      station_id,
+      arrival_time,
+      departure_time,
+    };
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   getAllTripStations,
   getStationByTripId,
+  assignStation,
 };

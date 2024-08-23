@@ -25,7 +25,24 @@ const getStationByTripId = async (req, res) => {
   }
 };
 
+// assign a station for a trip
+const assignStation = async (req, res) => {
+  const { trip_id, station_id, arrival_time, departure_time } = req.body;
+  try {
+    const newstation = await tripStationAssignService.assignStation(
+      trip_id,
+      station_id,
+      arrival_time,
+      departure_time
+    );
+    res.status(201).json(newstation);
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   getAllTripStations,
   getStationByTripId,
+  assignStation,
 };

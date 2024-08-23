@@ -7,5 +7,6 @@ router.get(
   "/trip-stations/:id",
   tripStationAssignController.getStationByTripId
 );
+router.post("/trip-stations", tripStationAssignController.assignStation);
 
 module.exports = router;
