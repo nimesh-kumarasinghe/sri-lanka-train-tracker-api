@@ -1,10 +1,10 @@
 const axios = require("axios");
 const config = require("../config/gatewayConfig");
 
-const getAllSchedules = async (req, res) => {
+const getAllTripStations = async (req, res) => {
   try {
     const response = await axios.get(
-      `${config.tripScheduleServiceUrl}/schedules`,
+      `${config.tripScheduleServiceUrl}/trip-stations`,
       {
         headers: {
           Authorization: req.headers.authorization,
@@ -17,11 +17,12 @@ const getAllSchedules = async (req, res) => {
   }
 };
 
-const getScheduleById = async (req, res) => {
+// Get station by trip ID
+const getStationByTripId = async (req, res) => {
   const { id } = req.params;
   try {
     const response = await axios.get(
-      `${config.tripScheduleServiceUrl}/schedules/${id}`,
+      `${config.tripScheduleServiceUrl}/trip-stations/${id}`,
       {
         headers: {
           Authorization: req.headers.authorization,
@@ -34,10 +35,11 @@ const getScheduleById = async (req, res) => {
   }
 };
 
-const createSchedule = async (req, res) => {
+// Assign station to a trip
+const assignStation = async (req, res) => {
   try {
     const response = await axios.post(
-      `${config.tripScheduleServiceUrl}/schedules`,
+      `${config.tripScheduleServiceUrl}/trip-stations`,
       req.body,
       {
         headers: {
@@ -51,11 +53,12 @@ const createSchedule = async (req, res) => {
   }
 };
 
-const updateSchedule = async (req, res) => {
+// Update assigned station
+const updateAssignStation = async (req, res) => {
   const { id } = req.params;
   try {
     const response = await axios.put(
-      `${config.tripScheduleServiceUrl}/schedules/${id}`,
+      `${config.tripScheduleServiceUrl}/trip-stations/${id}`,
       req.body,
       {
         headers: {
@@ -69,27 +72,28 @@ const updateSchedule = async (req, res) => {
   }
 };
 
-const deleteSchedule = async (req, res) => {
+// Delete assigned station
+const deleteAssignStation = async (req, res) => {
   const { id } = req.params;
   try {
     const response = await axios.delete(
-      `${config.tripScheduleServiceUrl}/schedules/${id}`,
+      `${config.tripScheduleServiceUrl}/trip-stations/${id}`,
       {
         headers: {
           Authorization: req.headers.authorization,
         },
       }
     );
-    res.status(200).json({ message: "Schedule deleted" });
+    res.status(200).json({ message: "Assigned station deleted" });
   } catch (error) {
     res.status(error.response?.status || 500).json({ message: error.message });
   }
 };
 
 module.exports = {
-  getAllSchedules,
-  getScheduleById,
-  createSchedule,
-  updateSchedule,
-  deleteSchedule,
+  getAllTripStations,
+  getStationByTripId,
+  assignStation,
+  updateAssignStation,
+  deleteAssignStation,
 };
