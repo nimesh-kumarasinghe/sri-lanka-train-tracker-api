@@ -106,7 +106,6 @@ const updateLocationData = async (data) => {
       await newLocation.save();
     }
   } catch (err) {
-    console.error("Error updating location data:", err);
     throw new Error("Error updating location data");
   }
 };
