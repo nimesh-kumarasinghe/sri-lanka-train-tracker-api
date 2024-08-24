@@ -23,6 +23,19 @@ const getScheduleById = async (id) => {
   }
 };
 
+// get availability, start time and end time details by trip id
+const getScheduleByTripId = async (id) => {
+  try {
+    const [rows] = await pool.query(
+      "SELECT availability, start_time, end_time FROM schedule WHERE trip_id = ?",
+      [id]
+    );
+    return rows[0];
+  } catch (err) {
+    throw err;
+  }
+};
+
 // create a schedule
 const createSchedule = async (trip_id, availability, start_time, end_time) => {
   try {
@@ -75,4 +88,5 @@ module.exports = {
   createSchedule,
   updateSchedule,
   deleteSchedule,
+  getScheduleByTripId,
 };

@@ -10,6 +10,11 @@ const getScheduleById = async (id) => {
   return scheduleModel.getScheduleById(id);
 };
 
+// get availability, start time and end time details by trip id
+const getScheduleByTripId = async (id) => {
+  return scheduleModel.getScheduleByTripId(id);
+};
+
 // create a schedule
 const createSchedule = async (trip_id, availability, start_time, end_time) => {
   return scheduleModel.createSchedule(
@@ -36,4 +41,5 @@ module.exports = {
   createSchedule,
   updateSchedule,
   deleteSchedule,
+  getScheduleByTripId,
 };

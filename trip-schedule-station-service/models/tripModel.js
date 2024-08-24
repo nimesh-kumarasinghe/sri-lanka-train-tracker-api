@@ -26,7 +26,7 @@ const getTripById = async (id) => {
 const getTripByTrainId = async (id) => {
   try {
     const [rows] = await pool.query(
-      "SELECT trip_type, duration FROM trip WHERE train_id = ?",
+      "SELECT trip_id, trip_type, duration FROM trip WHERE train_id = ?",
       [id]
     );
     return rows[0];
