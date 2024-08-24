@@ -15,11 +15,11 @@ async function connectToDatabase() {
   const collection = db.collection("trainLocationData");
 
   // Create a TTL index on the timestamp field
-  await collection.createIndex(
-    { timestamp: 1 },
-    { expireAfterSeconds: 90 * 24 * 60 * 60 }
-  ); // 90 days
-  console.log("TTL index created on 'timestamp' field");
+  // await collection.createIndex(
+  //   { timestamp: 1 },
+  //   { expireAfterSeconds: 90 * 24 * 60 * 60 }
+  // ); // 90 days
+  // console.log("TTL index created on 'timestamp' field");
 
   return db;
 }
