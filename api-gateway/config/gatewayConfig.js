@@ -8,6 +8,7 @@ const userServiceUrl = process.env.USER_SERVICE_URL;
 const engineTrainServiceUrl = process.env.ENGINE_TRAIN_SERVICE_URL;
 const tripScheduleServiceUrl = process.env.TRIP_SCHEDULE_SERVICE_URL;
 const lineRouteServiceUrl = process.env.LINE_ROUTE_SERVICE_URL;
+const locationServiceUrl = process.env.LOCATION_SERVICE_URL;
 
 module.exports = {
   authConfig,
@@ -15,4 +16,5 @@ module.exports = {
   engineTrainServiceUrl,
   tripScheduleServiceUrl,
   lineRouteServiceUrl,
+  locationServiceUrl,
 };

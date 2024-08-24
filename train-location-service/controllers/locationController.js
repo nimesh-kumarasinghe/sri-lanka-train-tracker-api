@@ -13,7 +13,7 @@ const updateLocation = async (req, res) => {
 };
 
 // get all data from location collection
-const getAllLocations = async (req, res) => {
+const getAllTrainData = async (req, res) => {
   try {
     const locations = await Location.find();
     res.status(200).json(locations);
@@ -25,5 +25,5 @@ const getAllLocations = async (req, res) => {
 
 module.exports = {
   updateLocation,
-  getAllLocations,
+  getAllTrainData,
 };
