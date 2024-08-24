@@ -6,7 +6,7 @@ const getAllSchedules = async (req, res) => {
     const schedules = await scheduleService.getAllSchedules();
     res.json(schedules);
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Data retrieving failed" });
   }
 };
 
@@ -21,7 +21,22 @@ const getScheduleById = async (req, res) => {
       res.status(404).json({ message: "Schedule not found" });
     }
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Data retrieving failed" });
+  }
+};
+
+// get availability, start time and end time details by trip id
+const getScheduleByTripId = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const scheduleTrip = await scheduleService.getScheduleByTripId(id);
+    if (scheduleTrip) {
+      res.json(scheduleTrip);
+    } else {
+      res.status(404).json({ message: "Schedule not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Data retrieving failed" });
   }
 };
 
@@ -37,7 +52,7 @@ const createSchedule = async (req, res) => {
     );
     res.status(201).json(newSchedule);
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Data insertion failed" });
   }
 };
 
@@ -53,7 +68,7 @@ const updateSchedule = async (req, res) => {
       res.status(404).json({ message: "Schedule not found" });
     }
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Data update failed" });
   }
 };
 
@@ -69,7 +84,7 @@ const deleteSchedule = async (req, res) => {
       res.status(404).json({ message: "Schedule not found" });
     }
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Data delete failed" });
   }
 };
 
@@ -79,4 +94,5 @@ module.exports = {
   createSchedule,
   updateSchedule,
   deleteSchedule,
+  getScheduleByTripId,
 };

@@ -10,6 +10,11 @@ const getTripById = async (id) => {
   return tripModel.getTripById(id);
 };
 
+// get trip type and duration details by train id
+const getTripByTrainId = async (id) => {
+  return tripModel.getTripByTrainId(id);
+};
+
 // create a trip
 const createTrip = async (
   trip_id,
@@ -45,4 +50,5 @@ module.exports = {
   createTrip,
   updateTrip,
   deleteTrip,
+  getTripByTrainId,
 };

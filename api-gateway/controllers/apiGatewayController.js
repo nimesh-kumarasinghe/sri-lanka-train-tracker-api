@@ -23,11 +23,11 @@ const register = async (req, res) => {
   const { user_id, password, role } = req.body;
   try {
     const hashedPassword = await encryptionUtils.hashPassword(password);
-    const data = await sendRequest(
-      `${config.userServiceUrl}/register`,
-      "POST",
-      { user_id, password: hashedPassword, role }
-    );
+    const data = await sendRequest(`${config.userServiceUrl}/users`, "POST", {
+      user_id,
+      password: hashedPassword,
+      role,
+    });
     res.status(201).json(data);
   } catch (err) {
     res.status(500).json({ message: err.message });

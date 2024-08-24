@@ -22,6 +22,19 @@ const getTripById = async (id) => {
   }
 };
 
+// get trip type and duration details by train id
+const getTripByTrainId = async (id) => {
+  try {
+    const [rows] = await pool.query(
+      "SELECT trip_id, trip_type, duration FROM trip WHERE train_id = ?",
+      [id]
+    );
+    return rows[0];
+  } catch (err) {
+    throw err;
+  }
+};
+
 // create a trip
 const createTrip = async (
   trip_id,
@@ -82,4 +95,5 @@ module.exports = {
   createTrip,
   updateTrip,
   deleteTrip,
+  getTripByTrainId,
 };

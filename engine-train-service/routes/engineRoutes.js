@@ -7,5 +7,6 @@ router.get("/engines/:id", engineController.getEngineById);
 router.post("/engines", engineController.createEngine);
 router.put("/engines/:id", engineController.updateEngine);
 router.delete("/engines/:id", engineController.deleteEngine);
+router.get("/engine-trains/:id", engineController.getTrainByIotid);
 
 module.exports = router;

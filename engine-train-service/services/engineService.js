@@ -10,6 +10,11 @@ const getEngineById = async (id) => {
   return engineModel.getEngineById(id);
 };
 
+// get train id details by iot id
+const getTrainByIotid = async (id) => {
+  return engineModel.getTrainByIotid(id);
+};
+
 // create a engine
 const createEngine = async (
   engine_id,
@@ -55,4 +60,5 @@ module.exports = {
   createEngine,
   updateEngine,
   deleteEngine,
+  getTrainByIotid,
 };

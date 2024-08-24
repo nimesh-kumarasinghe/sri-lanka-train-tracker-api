@@ -6,7 +6,7 @@ const getAllStations = async (req, res) => {
     const stations = await stationService.getAllStations();
     res.json(stations);
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Data retrieving failed" });
   }
 };
 
@@ -21,7 +21,7 @@ const getStationById = async (req, res) => {
       res.status(404).json({ message: "Station not found" });
     }
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Data retrieving failed" });
   }
 };
 
@@ -37,7 +37,7 @@ const createStation = async (req, res) => {
     );
     res.status(201).json(newStation);
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Data insertion failed" });
   }
 };
 
@@ -53,7 +53,7 @@ const updateStation = async (req, res) => {
       res.status(404).json({ message: "Station not found" });
     }
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Data update failed" });
   }
 };
 
@@ -69,7 +69,7 @@ const deleteStation = async (req, res) => {
       res.status(404).json({ message: "Station not found" });
     }
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Data delete failed" });
   }
 };
 

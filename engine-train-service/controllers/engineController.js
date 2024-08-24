@@ -6,7 +6,7 @@ const getAllEngines = async (req, res) => {
     const engines = await engineService.getAllEngines();
     res.json(engines);
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Data retrieving failed" });
   }
 };
 
@@ -21,7 +21,22 @@ const getEngineById = async (req, res) => {
       res.status(404).json({ message: "Engine not found" });
     }
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Data retrieving failed" });
+  }
+};
+
+// get train id details by iot id
+const getTrainByIotid = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const train = await engineService.getTrainByIotid(id);
+    if (train) {
+      res.json(train);
+    } else {
+      res.status(404).json({ message: "Train ID not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Data retrieving failed" });
   }
 };
 
@@ -56,7 +71,7 @@ const createEngine = async (req, res) => {
     );
     res.status(201).json(newEngine);
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Data insertion failed" });
   }
 };
 
@@ -72,7 +87,7 @@ const updateEngine = async (req, res) => {
       res.status(404).json({ message: "Engine not found" });
     }
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Data update failed" });
   }
 };
 
@@ -88,7 +103,7 @@ const deleteEngine = async (req, res) => {
       res.status(404).json({ message: "Engine not found" });
     }
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Data delete failed" });
   }
 };
 
@@ -98,4 +113,5 @@ module.exports = {
   createEngine,
   updateEngine,
   deleteEngine,
+  getTrainByIotid,
 };

@@ -6,7 +6,7 @@ const getAllTrips = async (req, res) => {
     const trips = await tripService.getAllTrips();
     res.json(trips);
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Data retrieving failed" });
   }
 };
 
@@ -21,7 +21,22 @@ const getTripById = async (req, res) => {
       res.status(404).json({ message: "Trip not found" });
     }
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Data retrieving failed" });
+  }
+};
+
+// get trip type and duration details by train id
+const getTripByTrainId = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const trip = await tripService.getTripByTrainId(id);
+    if (trip) {
+      res.json(trip);
+    } else {
+      res.status(404).json({ message: "Trip not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Data retrieving failed" });
   }
 };
 
@@ -40,7 +55,7 @@ const createTrip = async (req, res) => {
     );
     res.status(201).json(newTrip);
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Data insertion failed" });
   }
 };
 
@@ -56,7 +71,7 @@ const updateTrip = async (req, res) => {
       res.status(404).json({ message: "Trip not found" });
     }
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Data update failed" });
   }
 };
 
@@ -72,7 +87,7 @@ const deleteTrip = async (req, res) => {
       res.status(404).json({ message: "Trip not found" });
     }
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Data delete failed" });
   }
 };
 
@@ -82,4 +97,5 @@ module.exports = {
   createTrip,
   updateTrip,
   deleteTrip,
+  getTripByTrainId,
 };
