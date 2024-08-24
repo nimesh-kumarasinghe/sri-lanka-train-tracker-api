@@ -4,6 +4,6 @@ const locationController = require("../controllers/locationController");
 
 router.post("/data", locationController.updateLocation);
 
-router.get("/locations", locationController.getAllLocations);
+router.get("/trains/data", locationController.getAllLocations);
 
 module.exports = router;
