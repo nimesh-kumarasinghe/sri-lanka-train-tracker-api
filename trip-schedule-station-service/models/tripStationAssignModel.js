@@ -14,7 +14,7 @@ const getAllTripStations = async () => {
 const getStationByTripId = async (id) => {
   try {
     const [rows] = await pool.query(
-      "SELECT * FROM `trip_station` WHERE trip_id = ?",
+      "SELECT * FROM `trip_station` WHERE trip_id = ? ORDER BY stop_order ASC",
       [id]
     );
     return rows;

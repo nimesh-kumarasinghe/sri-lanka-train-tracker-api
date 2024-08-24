@@ -14,6 +14,7 @@ const LocationSchema = new mongoose.Schema({
   signalStrength: Number,
   locationName: String,
 
+  tripId: Number,
   trainName: String,
   startStationName: String,
   endStationName: String,

@@ -92,6 +92,7 @@ const updateLocationData = async (data) => {
         timestamp,
         signalStrength,
         locationName,
+        tripId,
         trainName,
         startStationName,
         endStationName,

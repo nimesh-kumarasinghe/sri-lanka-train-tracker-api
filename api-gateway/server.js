@@ -20,6 +20,15 @@ const accessLogStream = fs.createWriteStream(
   { flags: "a" }
 );
 
+// Enable CORS
+const cors = require("cors");
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET"],
+  })
+);
+
 app.use(express.json());
 
 // log requests to the console and to the log file
