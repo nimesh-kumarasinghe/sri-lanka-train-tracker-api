@@ -1,4 +1,5 @@
 const locationService = require("../services/locationService");
+const Location = require("../models/locationModel");
 
 const updateLocation = async (req, res) => {
   try {
@@ -11,6 +12,18 @@ const updateLocation = async (req, res) => {
   }
 };
 
+// get all data from location collection
+const getAllLocations = async (req, res) => {
+  try {
+    const locations = await Location.find();
+    res.status(200).json(locations);
+  } catch (err) {
+    console.error("Error in getAllLocations controller:", err);
+    res.status(500).json({ error: "Failed to retrieve location data" });
+  }
+};
+
 module.exports = {
   updateLocation,
+  getAllLocations,
 };

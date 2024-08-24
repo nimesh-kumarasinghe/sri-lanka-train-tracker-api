@@ -10,7 +10,7 @@ app.use(express.json());
 
 connectDB();
 
-app.use("/api/location", locationRoutes);
+app.use("/api", locationRoutes);
 
 app.listen(PORT, () => {
   console.log(`Location Service running on port ${PORT}`);
