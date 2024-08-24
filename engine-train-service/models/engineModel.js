@@ -23,6 +23,19 @@ const getEngineById = async (id) => {
   }
 };
 
+// get train id details by iot id
+const getTrainByIotid = async (id) => {
+  try {
+    const [rows] = await pool.query(
+      "SELECT train_id FROM engine WHERE iotdevice_id = ?",
+      [id]
+    );
+    return rows[0];
+  } catch (err) {
+    throw err;
+  }
+};
+
 // create a engine
 const createEngine = async (
   engine_id,
@@ -105,4 +118,5 @@ module.exports = {
   createEngine,
   updateEngine,
   deleteEngine,
+  getTrainByIotid,
 };

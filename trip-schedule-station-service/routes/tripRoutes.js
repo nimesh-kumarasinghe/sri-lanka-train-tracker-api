@@ -7,5 +7,6 @@ router.get("/trips/:id", tripController.getTripById);
 router.post("/trips", tripController.createTrip);
 router.put("/trips/:id", tripController.updateTrip);
 router.delete("/trips/:id", tripController.deleteTrip);
+router.get("/trip-trains/:id", tripController.getTripByTrainId);
 
 module.exports = router;
