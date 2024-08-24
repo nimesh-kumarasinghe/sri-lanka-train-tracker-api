@@ -1,7 +1,7 @@
 {
   "name": "sri-lanka-train-tracker-api",
   "version": "1.0.0",
-  "description": "Sri Lanka Train Tracker API",
+  "description": "Temporary data holding service",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
