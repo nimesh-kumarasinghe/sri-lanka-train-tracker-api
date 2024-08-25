@@ -5,8 +5,10 @@ const authMiddleware = require("../middlewares/authMiddleware");
 // Public Routes
 const userRoutes = require("./userPublicRoutes");
 const trainDataRoutes = require("./trainDataRoutes");
+const authController = require("../controllers/authController");
 router.use("/", userRoutes);
 router.use("/v1/trains/summary", trainDataRoutes);
+router.get("/generate-token", authController.generateToken);
 
 // Protected Routes
 const userPrivateRoutes = require("./userPrivateRoutes");
