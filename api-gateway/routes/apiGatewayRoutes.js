@@ -7,7 +7,7 @@ const userRoutes = require("./userPublicRoutes");
 const trainDataRoutes = require("./trainDataRoutes");
 const authController = require("../controllers/authController");
 router.use("/", userRoutes);
-router.use("/v1/trains/summary", trainDataRoutes);
+router.use("/v1/trains/summary", authMiddleware.verifyToken, trainDataRoutes);
 router.get("/generate-token", authController.generateToken);
 
 // Protected Routes
