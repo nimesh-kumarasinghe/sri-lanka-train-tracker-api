@@ -34,7 +34,7 @@ describe("Engine Controller", () => {
       const res = await request(app).get("/api/engines");
 
       expect(res.statusCode).toBe(500);
-      expect(res.body).toEqual({ message: "Server Error" });
+      expect(res.body).toEqual({ message: "Data retrieving failed" });
     });
   });
 
@@ -64,7 +64,7 @@ describe("Engine Controller", () => {
       const res = await request(app).get("/api/engines/1");
 
       expect(res.statusCode).toBe(500);
-      expect(res.body).toEqual({ message: "Server Error" });
+      expect(res.body).toEqual({ message: "Data retrieving failed" });
     });
   });
 
@@ -109,7 +109,7 @@ describe("Engine Controller", () => {
       });
 
       expect(res.statusCode).toBe(500);
-      expect(res.body).toEqual({ message: "Server Error" });
+      expect(res.body).toEqual({ message: "Data insertion failed" });
     });
   });
 
@@ -148,7 +148,7 @@ describe("Engine Controller", () => {
         .send({ engine_class: "Updated Class A" });
 
       expect(res.statusCode).toBe(500);
-      expect(res.body).toEqual({ message: "Server Error" });
+      expect(res.body).toEqual({ message: "Data update failed" });
     });
   });
 
@@ -177,7 +177,7 @@ describe("Engine Controller", () => {
       const res = await request(app).delete("/api/engines/1");
 
       expect(res.statusCode).toBe(500);
-      expect(res.body).toEqual({ message: "Server Error" });
+      expect(res.body).toEqual({ message: "Data delete failed" });
     });
   });
 });
