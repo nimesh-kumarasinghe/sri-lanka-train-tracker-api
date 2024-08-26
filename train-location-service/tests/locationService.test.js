@@ -1,6 +1,6 @@
 const Location = require("../models/locationModel");
 const axios = require("axios");
-const { updateLocationData } = require("../services/locationService"); // Replace with the actual path to the function file
+const { updateLocationData } = require("../services/locationService");
 
 jest.mock("axios");
 jest.mock("../models/locationModel");
