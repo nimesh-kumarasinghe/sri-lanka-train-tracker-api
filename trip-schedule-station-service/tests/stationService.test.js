@@ -40,7 +40,9 @@ describe("Station Controller", () => {
 
       expect(stationService.getAllStations).toHaveBeenCalled();
       expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ message: "Server Error" });
+      expect(res.json).toHaveBeenCalledWith({
+        message: "Data retrieving failed",
+      });
     });
   });
 
@@ -93,7 +95,9 @@ describe("Station Controller", () => {
 
       expect(stationService.getStationById).toHaveBeenCalledWith("1");
       expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ message: "Server Error" });
+      expect(res.json).toHaveBeenCalledWith({
+        message: "Data retrieving failed",
+      });
     });
   });
 
@@ -158,7 +162,9 @@ describe("Station Controller", () => {
         20.0
       );
       expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ message: "Server Error" });
+      expect(res.json).toHaveBeenCalledWith({
+        message: "Data insertion failed",
+      });
     });
   });
 
@@ -247,7 +253,7 @@ describe("Station Controller", () => {
         longitude: 21.0,
       });
       expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ message: "Server Error" });
+      expect(res.json).toHaveBeenCalledWith({ message: "Data update failed" });
     });
   });
 
@@ -300,7 +306,7 @@ describe("Station Controller", () => {
 
       expect(stationService.deleteStation).toHaveBeenCalledWith("1");
       expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ message: "Server Error" });
+      expect(res.json).toHaveBeenCalledWith({ message: "Data delete failed" });
     });
   });
 });

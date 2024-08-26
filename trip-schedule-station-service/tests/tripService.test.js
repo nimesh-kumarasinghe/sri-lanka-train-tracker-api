@@ -38,7 +38,9 @@ describe("Trip Controller", () => {
 
       expect(tripService.getAllTrips).toHaveBeenCalled();
       expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ message: "Server Error" });
+      expect(res.json).toHaveBeenCalledWith({
+        message: "Data retrieving failed",
+      });
     });
   });
 
@@ -89,7 +91,9 @@ describe("Trip Controller", () => {
 
       expect(tripService.getTripById).toHaveBeenCalledWith("1");
       expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ message: "Server Error" });
+      expect(res.json).toHaveBeenCalledWith({
+        message: "Data retrieving failed",
+      });
     });
   });
 
@@ -157,7 +161,9 @@ describe("Trip Controller", () => {
         120
       );
       expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ message: "Server Error" });
+      expect(res.json).toHaveBeenCalledWith({
+        message: "Data insertion failed",
+      });
     });
   });
 
@@ -214,7 +220,7 @@ describe("Trip Controller", () => {
         name: "Updated Trip",
       });
       expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ message: "Server Error" });
+      expect(res.json).toHaveBeenCalledWith({ message: "Data update failed" });
     });
   });
 
@@ -267,7 +273,7 @@ describe("Trip Controller", () => {
 
       expect(tripService.deleteTrip).toHaveBeenCalledWith("1");
       expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ message: "Server Error" });
+      expect(res.json).toHaveBeenCalledWith({ message: "Data delete failed" });
     });
   });
 });

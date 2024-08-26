@@ -52,7 +52,9 @@ describe("Schedule Controller", () => {
 
       expect(scheduleService.getAllSchedules).toHaveBeenCalled();
       expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ message: "Server Error" });
+      expect(res.json).toHaveBeenCalledWith({
+        message: "Data retrieving failed",
+      });
     });
   });
 
@@ -111,7 +113,9 @@ describe("Schedule Controller", () => {
 
       expect(scheduleService.getScheduleById).toHaveBeenCalledWith("1");
       expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ message: "Server Error" });
+      expect(res.json).toHaveBeenCalledWith({
+        message: "Data retrieving failed",
+      });
     });
   });
 
@@ -179,7 +183,9 @@ describe("Schedule Controller", () => {
         "12:00"
       );
       expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ message: "Server Error" });
+      expect(res.json).toHaveBeenCalledWith({
+        message: "Data insertion failed",
+      });
     });
   });
 
@@ -271,7 +277,7 @@ describe("Schedule Controller", () => {
         end_time: "13:00",
       });
       expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ message: "Server Error" });
+      expect(res.json).toHaveBeenCalledWith({ message: "Data update failed" });
     });
   });
 
@@ -326,7 +332,7 @@ describe("Schedule Controller", () => {
 
       expect(scheduleService.deleteSchedule).toHaveBeenCalledWith("1");
       expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ message: "Server Error" });
+      expect(res.json).toHaveBeenCalledWith({ message: "Data delete failed" });
     });
   });
 });
