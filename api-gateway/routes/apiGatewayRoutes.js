@@ -4,10 +4,8 @@ const authMiddleware = require("../middlewares/authMiddleware");
 
 // Public Routes
 const userRoutes = require("./userPublicRoutes");
-const trainDataRoutes = require("./trainDataRoutes");
 const authController = require("../controllers/authController");
 router.use("/", userRoutes);
-router.use("/v1/trains/summary", authMiddleware.verifyToken, trainDataRoutes);
 router.get("/generate-token", authController.generateToken);
 
 // Protected Routes
@@ -20,6 +18,8 @@ const scheduleRoutes = require("./scheduleRoutes");
 const assignStationRoutes = require("./assignStationRoutes");
 const lineRoutes = require("./lineRoutes");
 const routeRoutes = require("./routeRoutes");
+const ingestionRoute = require("./ingestionRoute");
+const trainDataRoutes = require("./trainDataRoutes");
 
 router.use("/users", authMiddleware.verifyToken, userPrivateRoutes);
 router.use("/trains", authMiddleware.verifyToken, trainRoutes);
@@ -30,5 +30,7 @@ router.use("/schedules", authMiddleware.verifyToken, scheduleRoutes);
 router.use("/trip-stations", authMiddleware.verifyToken, assignStationRoutes);
 router.use("/lines", authMiddleware.verifyToken, lineRoutes);
 router.use("/routes", authMiddleware.verifyToken, routeRoutes);
+router.use("/gps-data", authMiddleware.verifyToken, ingestionRoute);
+router.use("/v1/trains/summary", authMiddleware.verifyToken, trainDataRoutes);
 
 module.exports = router;

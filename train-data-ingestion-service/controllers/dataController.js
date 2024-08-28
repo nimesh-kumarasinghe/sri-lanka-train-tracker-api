@@ -1,5 +1,6 @@
 const axios = require("axios");
 const { processAndSaveData } = require("../services/dataProcessing");
+const TrainLocation = require("../models/trainLocationModel");
 
 const processData = async (req, res) => {
   try {
@@ -17,4 +18,17 @@ const processData = async (req, res) => {
   }
 };
 
-module.exports = { processData };
+//  get all trains location data
+const getAllTrainGpsData = async (req, res) => {
+  try {
+    const trainLocationData = await TrainLocation.find();
+    res.status(200).json({
+      data: trainLocationData,
+    });
+  } catch (err) {
+    console.error("Error in getAllTrainData controller:", err);
+    res.status(500).json({ error: "Failed to retrieve train location data" });
+  }
+};
+
+module.exports = { processData, getAllTrainGpsData };
