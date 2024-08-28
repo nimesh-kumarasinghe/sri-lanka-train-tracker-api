@@ -17,7 +17,7 @@ const updateLocationData = async (data) => {
     const existingLocation = await Location.findOne({ iotDeviceId });
 
     if (existingLocation) {
-      // If it exists, update the location and timestamp only
+      // If it exists, update the speed, signal strength, location name, location and timestamp only
       existingLocation.location = location;
       existingLocation.speed = speed;
       existingLocation.timestamp = timestamp;
