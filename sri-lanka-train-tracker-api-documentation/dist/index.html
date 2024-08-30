@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sri Lanka Train Tracker - API Document Portal</title>
+    <link rel="stylesheet" type="text/css" href="./swagger-ui.css" />
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="./favicon-32x32.png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="./favicon-16x16.png"
+      sizes="16x16"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #ffffff;
+      }
+
+      .container {
+        max-width: 1500px;
+        margin: auto;
+      }
+
+      h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      h2 {
+        font-size: 1.5em;
+        margin-bottom: 40px;
+        color: #494949;
+        text-align: center;
+      }
+
+      .card {
+        background-color: rgb(247, 247, 247);
+        padding: 20px;
+        margin: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: inline-block;
+        width: calc(33.333% - 40px); /* 3 cards per row */
+        box-sizing: border-box;
+        text-align: left;
+        vertical-align: top;
+        border: 1px solid #a3a3a3;
+      }
+
+      .card h3 {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+      }
+
+      .card p {
+        font-size: 1em;
+        margin-bottom: 20px;
+        color: #303030;
+        min-height: 60px; /* Ensure equal height for descriptions */
+      }
+
+      .card button {
+        padding: 10px 20px;
+        background-color: #003874;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1em;
+      }
+
+      .card button:hover {
+        background-color: #0056b3;
+      }
+
+      #swagger-ui {
+        margin-top: 40px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Sri Lanka Train Tracker</h1>
+      <h2>API Document Portal</h2>
+
+      <div class="card">
+        <h3>Engine Train Service</h3>
+        <p>API for managing engines and trains.</p>
+        <button
+          onclick="openSwagger('./NIMESHDILANJANA99-Engine-API-1.0.0-resolved.yaml')"
+        >
+          Open API Documentation
+        </button>
+      </div>
+
+      <div class="card">
+        <h3>Line Route Service</h3>
+        <p>API for managing railway lines and routes.</p>
+        <button
+          onclick="openSwagger('./NIMESHDILANJANA99-line-and-route-service-1.0.0-resolved.yaml')"
+        >
+          Open API Documentation
+        </button>
+      </div>
+
+      <div class="card">
+        <h3>Trip Schedule Station Service</h3>
+        <p>
+          API for managing trips, schedules, stations and assiging stations for
+          trips.
+        </p>
+        <button
+          onclick="openSwagger('./NIMESHDILANJANA99-trip-schedule-station-service-1.0.0-resolved.yaml')"
+        >
+          Open API Documentation
+        </button>
+      </div>
+
+      <div class="card">
+        <h3>User Service</h3>
+        <p>API for managing users and login.</p>
+        <button
+          onclick="openSwagger('./NIMESHDILANJANA99-user-service-1.0.0-resolved.yaml')"
+        >
+          Open API Documentation
+        </button>
+      </div>
+
+      <div class="card">
+        <h3>Location Service</h3>
+        <p>API for get trains location summary data.</p>
+        <button
+          onclick="openSwagger('./NIMESHDILANJANA99-location-service-1.0.0-resolved.yaml')"
+        >
+          Open API Documentation
+        </button>
+      </div>
+
+      <div class="card">
+        <h3>Train Data Ingestion Service</h3>
+        <p>Ingetion data coming from data generator.</p>
+        <button
+          onclick="openSwagger('./NIMESHDILANJANA99-ingestion-service-1.0.0-resolved.yaml')"
+        >
+          Open API Documentation
+        </button>
+      </div>
+
+      <div id="swagger-ui"></div>
+    </div>
+
+    <script src="./swagger-ui-bundle.js" charset="UTF-8"></script>
+    <script src="./swagger-ui-standalone-preset.js" charset="UTF-8"></script>
+    <script>
+      function openSwagger(url) {
+        const ui = SwaggerUIBundle({
+          url: url,
+          dom_id: "#swagger-ui",
+          presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+          layout: "StandaloneLayout",
+        });
+        window.ui = ui;
+        document
+          .getElementById("swagger-ui")
+          .scrollIntoView({ behavior: "smooth" });
+      }
+    </script>
+  </body>
+</html>

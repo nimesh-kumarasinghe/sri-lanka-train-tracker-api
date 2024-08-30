@@ -38,6 +38,18 @@ async function processAndSaveData(data) {
     data.speed
   );
 
+  if (
+    !data.iotDeviceId ||
+    !data.location ||
+    !data.location.latitude ||
+    !data.location.longitude ||
+    data.speed == null ||
+    !data.timestamp ||
+    data.signalStrength == null
+  ) {
+    throw new Error("Invalid data: All fields are required and must be valid.");
+  }
+
   // Format the data and create a new instance of TrainLocation
   const processedData = new TrainLocation({
     iotDeviceId: data.iotDeviceId,

@@ -1,0 +1,167 @@
+openapi: 3.0.0
+info:
+  title: User Management API
+  description: "API documentation for user registration, login, and user management."
+  version: 1.0.0
+servers:
+  # - url: https://virtserver.swaggerhub.com/NIMESHDILANJANA99/user-service/1.0.0
+  #   description: SwaggerHub API Auto Mocking
+  - url: http://localhost:3000
+    description: Local server
+paths:
+  /users:
+    post:
+      tags:
+        - Users
+      summary: Register a new user
+      operationId: registerUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+            example:
+              user_id: 1
+              password: password123
+              role: admin
+              is_active: true
+        required: true
+      responses:
+        "201":
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: User registered successfully.
+  /login:
+    post:
+      tags:
+        - Users
+      summary: User login
+      operationId: loginUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/login_body"
+            example:
+              user_id: 1
+              password: password123
+        required: true
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Login successful.
+                token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+  /users/{id}:
+    get:
+      tags:
+        - Users
+      summary: Get user details
+      operationId: getUser
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the user to retrieve
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: User details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+              example:
+                user_id: 1
+                role: admin
+                is_active: true
+    put:
+      tags:
+        - Users
+      summary: Update user details
+      operationId: updateUser
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the user to update
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+            example:
+              role: user
+              is_active: false
+        required: true
+      responses:
+        "200":
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: User updated successfully.
+    delete:
+      tags:
+        - Users
+      summary: Delete a user
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the user to delete
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: User deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: User deleted successfully.
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          description: Unique identifier for the user
+        password:
+          type: string
+          description: Password for the user
+        role:
+          type: string
+          description: "Role of the user (e.g., admin, user)"
+        is_active:
+          type: boolean
+          description: Status indicating if the user is active
+    login_body:
+      type: object
+      properties:
+        user_id:
+          type: integer
+        password:
+          type: string

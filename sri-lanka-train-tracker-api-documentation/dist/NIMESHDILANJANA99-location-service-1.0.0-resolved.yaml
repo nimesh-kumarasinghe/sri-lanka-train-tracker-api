@@ -1,0 +1,239 @@
+openapi: 3.0.0
+info:
+  title: Train Location and Summary API
+  description: API documentation for managing train locations and retrieving train summaries.
+  version: 1.0.0
+servers:
+  - url: https://virtserver.swaggerhub.com/NIMESHDILANJANA99/location-service/1.0.0
+    description: SwaggerHub API Auto Mocking
+  - url: http://localhost:3000
+    description: Local server
+paths:
+  /data:
+    post:
+      tags:
+        - Train Location
+      summary: Insert train location data
+      operationId: updateLocation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TrainLocation"
+            example:
+              iotDeviceId: 12000
+              location:
+                latitude: 6.9271
+                longitude: 79.8612
+              speed: 60
+              timestamp: 2024-08-28T12:30:00Z
+              signalStrength: 4
+              locationName: Colombo Fort
+        required: true
+      responses:
+        "200":
+          description: Location data updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Location data updated successfully.
+  /v1/trains/summary:
+    get:
+      tags:
+        - Train Summary
+      summary: Get summary of all trains
+      operationId: getAllTrainData
+      responses:
+        "200":
+          description: A summary of all trains
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TrainSummary"
+              example:
+                - iotDeviceId: 12000
+                  location:
+                    latitude: 6.9271
+                    longitude: 79.8612
+                  speed: 60
+                  timestamp: 2024-08-28T12:30:00Z
+                  signalStrength: 4
+                  locationName: Colombo Fort
+                  tripId: 101
+                  trainName: Express Train 01
+                  startStationName: Colombo Fort
+                  endStationName: Kandy
+                  tripType: Express
+                  duration: 2h 30m
+                  availability: Available
+                  startTime: 06:00:00
+                  endTime: 08:30:00
+                  stations:
+                    - stationName: Colombo Fort
+                      latitude: 6.9335
+                      longitude: 79.8505
+                    - stationName: Peradeniya
+                      latitude: 7.2716
+                      longitude: 80.5917
+                    - stationName: Kandy
+                      latitude: 7.2906
+                      longitude: 80.6337
+  /v1/trains/summary/by-stations:
+    get:
+      tags:
+        - Train Summary
+      summary: Get train summary by start and end stations
+      operationId: getTrainDataByStations
+      parameters:
+        - name: startStationName
+          in: query
+          description: Name of the start station
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: endStationName
+          in: query
+          description: Name of the end station
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Train summary based on start and end stations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TrainSummary"
+              example:
+                - iotDeviceId: 12000
+                  location:
+                    latitude: 6.9271
+                    longitude: 79.8612
+                  speed: 60
+                  timestamp: 2024-08-28T12:30:00Z
+                  signalStrength: 4
+                  locationName: Colombo Fort
+                  tripId: 102
+                  trainName: Express Train 02
+                  startStationName: Galle
+                  endStationName: Colombo Fort
+                  tripType: Express
+                  duration: 1h 45m
+                  availability: Available
+                  startTime: 10:00:00
+                  endTime: 11:45:00
+                  stations:
+                    - stationName: Galle
+                      latitude: 6.0375
+                      longitude: 80.217
+                    - stationName: Aluthgama
+                      latitude: 6.4511
+                      longitude: 80.0064
+                    - stationName: Colombo Fort
+                      latitude: 6.9335
+                      longitude: 79.8505
+components:
+  schemas:
+    TrainLocation:
+      type: object
+      properties:
+        iotDeviceId:
+          type: integer
+          description: Unique identifier for the IoT device
+        location:
+          $ref: "#/components/schemas/TrainLocation_location"
+        speed:
+          type: number
+          format: float
+        timestamp:
+          type: string
+          format: date-time
+        signalStrength:
+          type: integer
+          description: Strength of the signal from the IoT device
+        locationName:
+          type: string
+          description: Name of the current location
+    TrainSummary:
+      type: object
+      properties:
+        iotDeviceId:
+          type: integer
+          description: Unique identifier for the IoT device
+        location:
+          $ref: "#/components/schemas/TrainLocation_location"
+        speed:
+          type: number
+          format: float
+        timestamp:
+          type: string
+          format: date-time
+        signalStrength:
+          type: integer
+          description: Strength of the signal from the IoT device
+        locationName:
+          type: string
+          description: Name of the current location
+        tripId:
+          type: integer
+          description: Unique identifier for the trip
+        trainName:
+          type: string
+          description: Name of the train
+        startStationName:
+          type: string
+          description: Name of the start station
+        endStationName:
+          type: string
+          description: Name of the end station
+        tripType:
+          type: string
+          description: "Type of trip (e.g., Express, Slow)"
+        duration:
+          type: string
+          description: Duration of the trip
+        availability:
+          type: string
+          description: Availability status of the train
+        startTime:
+          type: string
+          description: Scheduled start time of the trip
+          format: time
+        endTime:
+          type: string
+          description: Scheduled end time of the trip
+          format: time
+        stations:
+          type: array
+          items:
+            $ref: "#/components/schemas/TrainSummary_stations"
+    TrainLocation_location:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: float
+        longitude:
+          type: number
+          format: float
+    TrainSummary_stations:
+      type: object
+      properties:
+        stationName:
+          type: string
+        latitude:
+          type: number
+          format: float
+        longitude:
+          type: number
+          format: float

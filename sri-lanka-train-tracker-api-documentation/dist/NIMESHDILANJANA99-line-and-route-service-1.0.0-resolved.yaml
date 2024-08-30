@@ -1,0 +1,290 @@
+openapi: 3.0.0
+info:
+  title: Railway Line and Route API
+  description: API for managing railway lines and routes.
+  version: 1.0.0
+servers:
+  # - url: https://virtserver.swaggerhub.com/NIMESHDILANJANA99/line-and-route-service/1.0.0
+  #   description: SwaggerHub API Auto Mocking
+  - url: http://localhost:3000
+    description: Local server
+paths:
+  /lines:
+    get:
+      tags:
+        - Lines
+      summary: Get all railway lines
+      operationId: getAllLines
+      responses:
+        "200":
+          description: A list of railway lines
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Line"
+              examples:
+                example1:
+                  summary: Example of all lines
+                  value:
+                    - line_id: 1
+                      line_name: Main Line
+                    - line_id: 2
+                      line_name: Coastal Line
+    post:
+      tags:
+        - Lines
+      summary: Create a new railway line
+      operationId: createLine
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Line"
+        required: true
+      responses:
+        "201":
+          description: Railway line created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Line"
+              example:
+                line_id: 3
+                line_name: Northern Line
+  /lines/{id}:
+    get:
+      tags:
+        - Lines
+      summary: Get a railway line by ID
+      operationId: getLineById
+      parameters:
+        - name: id
+          in: path
+          description: ID of the railway line to retrieve
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: A single railway line
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Line"
+              example:
+                line_id: 1
+                line_name: Main Line
+    put:
+      tags:
+        - Lines
+      summary: Update a railway line by ID
+      operationId: updateLine
+      parameters:
+        - name: id
+          in: path
+          description: ID of the railway line to update
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Line"
+        required: true
+      responses:
+        "200":
+          description: Railway line updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Line"
+              example:
+                line_id: 1
+                line_name: Main Line Updated
+    delete:
+      tags:
+        - Lines
+      summary: Delete a railway line by ID
+      operationId: deleteLine
+      parameters:
+        - name: id
+          in: path
+          description: ID of the railway line to delete
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Railway line deleted
+  /routes:
+    get:
+      tags:
+        - Routes
+      summary: Get all routes
+      operationId: getAllRoutes
+      responses:
+        "200":
+          description: A list of routes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Route"
+              examples:
+                example1:
+                  summary: Example of all routes
+                  value:
+                    - route_id: 1
+                      route_code: ML01
+                      start_station: Colombo Fort
+                      end_station: Badulla
+                      distance: 292.3
+                    - route_id: 2
+                      route_code: CL01
+                      start_station: Colombo Fort
+                      end_station: Galle
+                      distance: 116.7
+    post:
+      tags:
+        - Routes
+      summary: Create a new route
+      operationId: createRoute
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Route"
+        required: true
+      responses:
+        "201":
+          description: Route created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Route"
+              example:
+                route_id: 3
+                route_code: NL01
+                start_station: Vavuniya
+                end_station: Jaffna
+                distance: 96.5
+  /routes/{id}:
+    get:
+      tags:
+        - Routes
+      summary: Get a route by ID
+      operationId: getRouteById
+      parameters:
+        - name: id
+          in: path
+          description: ID of the route to retrieve
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: A single route
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Route"
+              example:
+                route_id: 1
+                route_code: ML01
+                start_station: Colombo Fort
+                end_station: Badulla
+                distance: 292.3
+    put:
+      tags:
+        - Routes
+      summary: Update a route by ID
+      operationId: updateRoute
+      parameters:
+        - name: id
+          in: path
+          description: ID of the route to update
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Route"
+        required: true
+      responses:
+        "200":
+          description: Route updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Route"
+              example:
+                route_id: 1
+                route_code: ML01
+                start_station: Colombo Fort
+                end_station: Badulla
+                distance: 292.3
+    delete:
+      tags:
+        - Routes
+      summary: Delete a route by ID
+      operationId: deleteRoute
+      parameters:
+        - name: id
+          in: path
+          description: ID of the route to delete
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Route deleted
+components:
+  schemas:
+    Line:
+      required:
+        - line_id
+        - line_name
+      type: object
+      properties:
+        line_id:
+          type: integer
+        line_name:
+          type: string
+    Route:
+      required:
+        - distance
+        - end_station
+        - route_code
+        - route_id
+        - start_station
+      type: object
+      properties:
+        route_id:
+          type: integer
+        route_code:
+          type: string
+        start_station:
+          type: string
+        end_station:
+          type: string
+        distance:
+          type: number
+          format: double

@@ -1,0 +1,419 @@
+openapi: 3.0.0
+info:
+  title: Engine and Train API
+  description: API for managing engines and trains.
+  version: 1.0.0
+servers:
+  # - url: https://virtserver.swaggerhub.com/NIMESHDILANJANA99/Engine-API/1.0.0
+  #   description: SwaggerHub API Auto Mocking
+  - url: http://localhost:3000
+    description: Local server
+paths:
+  /engines:
+    get:
+      tags:
+        - Engines
+      summary: Get all engines
+      operationId: getAllEngines
+      responses:
+        "200":
+          description: A list of engines
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Engine"
+              examples:
+                example1:
+                  summary: Example of all engines
+                  value:
+                    - engine_id: 1
+                      iotdevice_id: 101
+                      train_id: TR001
+                      engine_class: Class A
+                      manufacturer_year: 2010
+                      engine_type: Diesel
+                      fuel_type: Diesel
+                      horsepower: 3000
+                      torque_nm: 9000.0
+                      cylinders: 12
+                      weight_kg: 80000.0
+                    - engine_id: 2
+                      iotdevice_id: 102
+                      train_id: TR002
+                      engine_class: Class B
+                      manufacturer_year: 2012
+                      engine_type: Electric
+                      fuel_type: Electric
+                      horsepower: 3500
+                      torque_nm: 9500.0
+                      cylinders: 0
+                      weight_kg: 85000.0
+    post:
+      tags:
+        - Engines
+      summary: Create a new engine
+      operationId: createEngine
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Engine"
+        required: true
+      responses:
+        "201":
+          description: Engine created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Engine"
+              example:
+                engine_id: 3
+                iotdevice_id: 103
+                train_id: TR003
+                engine_class: Class C
+                manufacturer_year: 2015
+                engine_type: Diesel
+                fuel_type: Diesel
+                horsepower: 3200
+                torque_nm: 9100.0
+                cylinders: 8
+                weight_kg: 78000.0
+  /engines/{id}:
+    get:
+      tags:
+        - Engines
+      summary: Get an engine by ID
+      operationId: getEngineById
+      parameters:
+        - name: id
+          in: path
+          description: ID of the engine to retrieve
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: A single engine
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Engine"
+              example:
+                engine_id: 1
+                iotdevice_id: 101
+                train_id: TR001
+                engine_class: Class A
+                manufacturer_year: 2010
+                engine_type: Diesel
+                fuel_type: Diesel
+                horsepower: 3000
+                torque_nm: 9000.0
+                cylinders: 12
+                weight_kg: 80000.0
+    put:
+      tags:
+        - Engines
+      summary: Update an engine by ID
+      operationId: updateEngine
+      parameters:
+        - name: id
+          in: path
+          description: ID of the engine to update
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Engine"
+        required: true
+      responses:
+        "200":
+          description: Engine updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Engine"
+              example:
+                engine_id: 1
+                iotdevice_id: 101
+                train_id: TR001
+                engine_class: Class A
+                manufacturer_year: 2010
+                engine_type: Diesel
+                fuel_type: Diesel
+                horsepower: 3100
+                torque_nm: 9200.0
+                cylinders: 12
+                weight_kg: 81000.0
+    delete:
+      tags:
+        - Engines
+      summary: Delete an engine by ID
+      operationId: deleteEngine
+      parameters:
+        - name: id
+          in: path
+          description: ID of the engine to delete
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Engine deleted
+  /engine-trains/{id}:
+    get:
+      tags:
+        - Engines
+      summary: Get a train by IoT device ID
+      operationId: getTrainByIotid
+      parameters:
+        - name: id
+          in: path
+          description: IoT device ID associated with the train
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Train information
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Train"
+              example:
+                train_id: TR001
+                engine_id: 1
+                train_name: Express 1
+                route: Colombo - Kandy
+                no_of_boxes: 10
+                passenger_capacity: 500
+                first_class: true
+                second_class: true
+                third_class: true
+  /trains:
+    get:
+      tags:
+        - Trains
+      summary: Get all trains
+      operationId: getAllTrains
+      responses:
+        "200":
+          description: A list of trains
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Train"
+              examples:
+                example1:
+                  summary: Example of all trains
+                  value:
+                    - train_id: TR001
+                      route_id: 1
+                      train_name: Express 1
+                      no_of_boxes: 10
+                      passenger_capacity: 500
+                      first_class: true
+                      second_class: true
+                      third_class: true
+                    - train_id: TR002
+                      route_id: 2
+                      train_name: Local 2
+                      no_of_boxes: 8
+                      passenger_capacity: 400
+                      first_class: false
+                      second_class: true
+                      third_class: true
+    post:
+      tags:
+        - Trains
+      summary: Create a new train
+      operationId: createTrain
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Train"
+        required: true
+      responses:
+        "201":
+          description: Train created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Train"
+              example:
+                train_id: TR003
+                route_id: 3
+                train_name: Express 3
+                no_of_boxes: 12
+                passenger_capacity: 600
+                first_class: true
+                second_class: true
+                third_class: true
+  /trains/{id}:
+    get:
+      tags:
+        - Trains
+      summary: Get a train by ID
+      operationId: getTrainById
+      parameters:
+        - name: id
+          in: path
+          description: ID of the train to retrieve
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A single train
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Train"
+              example:
+                train_id: TR001
+                route_id: 1
+                train_name: Express 1
+                no_of_boxes: 10
+                passenger_capacity: 500
+                first_class: true
+                second_class: true
+                third_class: true
+    put:
+      tags:
+        - Trains
+      summary: Update a train by ID
+      operationId: updateTrain
+      parameters:
+        - name: id
+          in: path
+          description: ID of the train to update
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Train"
+        required: true
+      responses:
+        "200":
+          description: Train updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Train"
+              example:
+                train_id: TR001
+                route_id: 1
+                train_name: Express 1 Updated
+                no_of_boxes: 10
+                passenger_capacity: 550
+                first_class: true
+                second_class: true
+                third_class: true
+    delete:
+      tags:
+        - Trains
+      summary: Delete a train by ID
+      operationId: deleteTrain
+      parameters:
+        - name: id
+          in: path
+          description: ID of the train to delete
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Train deleted
+components:
+  schemas:
+    Engine:
+      required:
+        - cylinders
+        - engine_class
+        - engine_id
+        - engine_type
+        - fuel_type
+        - horsepower
+        - iotdevice_id
+        - manufacturer_year
+        - torque_nm
+        - train_id
+        - weight_kg
+      type: object
+      properties:
+        engine_id:
+          type: integer
+        iotdevice_id:
+          type: integer
+        train_id:
+          type: string
+        engine_class:
+          type: string
+        manufacturer_year:
+          type: integer
+        engine_type:
+          type: string
+        fuel_type:
+          type: string
+        horsepower:
+          type: integer
+        torque_nm:
+          type: number
+          format: double
+        cylinders:
+          type: integer
+        weight_kg:
+          type: number
+          format: double
+    Train:
+      required:
+        - first_class
+        - no_of_boxes
+        - passenger_capacity
+        - route_id
+        - second_class
+        - third_class
+        - train_id
+        - train_name
+      type: object
+      properties:
+        train_id:
+          type: string
+        route_id:
+          type: integer
+        train_name:
+          type: string
+        no_of_boxes:
+          type: integer
+        passenger_capacity:
+          type: integer
+        first_class:
+          type: boolean
+        second_class:
+          type: boolean
+        third_class:
+          type: boolean
