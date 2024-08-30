@@ -66,24 +66,25 @@ const updateLocationData = async (data) => {
         `${process.env.TRIP_SCHEDULE_SERVICE_URL}/trip-stations/${tripId}`
       );
 
-      const stationIds = tripStationRes.data.map(
-        (station) => station.station_id
-      );
-
-      // Fetch station details for each station ID and store them in an array
+      // Assuming tripStationRes.data is an array of stations with arrival and departure times
       const stations = await Promise.all(
-        stationIds.map(async (stationId) => {
+        tripStationRes.data.map(async (station) => {
+          const { station_id, arrival_time, departure_time } = station;
+
+          // Fetch station details for each station ID
           const stationRes = await axios.get(
-            `${process.env.TRIP_SCHEDULE_SERVICE_URL}/stations/${stationId}`
+            `${process.env.TRIP_SCHEDULE_SERVICE_URL}/stations/${station_id}`
           );
+
           return {
             stationName: stationRes.data.station_name,
             latitude: stationRes.data.latitude,
             longitude: stationRes.data.longitude,
+            arrivalTime: arrival_time, // Set specific arrival time for this station
+            departureTime: departure_time, // Set specific departure time for this station
           };
         })
       );
-
       // Insert the new location data in MongoDB
       const newLocation = new Location({
         iotDeviceId,

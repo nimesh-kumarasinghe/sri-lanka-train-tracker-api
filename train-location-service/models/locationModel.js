@@ -28,6 +28,8 @@ const LocationSchema = new mongoose.Schema({
       stationName: String,
       latitude: Number,
       longitude: Number,
+      arrivalTime: String,
+      departureTime: String,
     },
   ],
 });
