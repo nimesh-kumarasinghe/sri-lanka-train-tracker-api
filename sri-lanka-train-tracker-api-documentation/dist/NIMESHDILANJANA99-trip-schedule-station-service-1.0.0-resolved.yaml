@@ -1,0 +1,652 @@
+openapi: 3.0.0
+info:
+  title: "Railway Schedule, Trip, and Station API"
+  description: "API for managing schedules, trips, stations, and the assignment of stations to trips."
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/NIMESHDILANJANA99/trip-schedule-station-service/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: http://localhost:3000
+  description: Local server
+paths:
+  /schedules:
+    get:
+      tags:
+      - Schedules
+      summary: Get all schedules
+      operationId: getAllSchedules
+      responses:
+        "200":
+          description: A list of schedules
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule'
+              examples:
+                example1:
+                  summary: Example of all schedules
+                  value:
+                  - schedule_id: 1
+                    trip_id: 1
+                    availability: Weekdays
+                    start_time: 08:00:00
+                    end_time: 12:00:00
+                  - schedule_id: 2
+                    trip_id: 2
+                    availability: Weekends
+                    start_time: 10:00:00
+                    end_time: 14:00:00
+    post:
+      tags:
+      - Schedules
+      summary: Create a new schedule
+      operationId: createSchedule
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Schedule'
+        required: true
+      responses:
+        "201":
+          description: Schedule created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+              example:
+                schedule_id: 3
+                trip_id: 3
+                availability: Holidays
+                start_time: 09:00:00
+                end_time: 13:00:00
+  /schedules/{id}:
+    get:
+      tags:
+      - Schedules
+      summary: Get a schedule by ID
+      operationId: getScheduleById
+      parameters:
+      - name: id
+        in: path
+        description: ID of the schedule to retrieve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: A single schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+              example:
+                schedule_id: 1
+                trip_id: 1
+                availability: Weekdays
+                start_time: 08:00:00
+                end_time: 12:00:00
+    put:
+      tags:
+      - Schedules
+      summary: Update a schedule by ID
+      operationId: updateSchedule
+      parameters:
+      - name: id
+        in: path
+        description: ID of the schedule to update
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Schedule'
+        required: true
+      responses:
+        "200":
+          description: Schedule updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+              example:
+                schedule_id: 1
+                trip_id: 1
+                availability: Weekdays
+                start_time: 08:00:00
+                end_time: 12:00:00
+    delete:
+      tags:
+      - Schedules
+      summary: Delete a schedule by ID
+      operationId: deleteSchedule
+      parameters:
+      - name: id
+        in: path
+        description: ID of the schedule to delete
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "204":
+          description: Schedule deleted
+  /schedules/trip/{id}:
+    get:
+      tags:
+      - Schedules
+      summary: Get a schedule by Trip ID
+      operationId: getScheduleByTripId
+      parameters:
+      - name: id
+        in: path
+        description: Trip ID to retrieve the schedule for
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: A single schedule for the given Trip ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+              example:
+                schedule_id: 1
+                trip_id: 1
+                availability: Weekdays
+                start_time: 08:00:00
+                end_time: 12:00:00
+  /trips:
+    get:
+      tags:
+      - Trips
+      summary: Get all trips
+      operationId: getAllTrips
+      responses:
+        "200":
+          description: A list of trips
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Trip'
+              examples:
+                example1:
+                  summary: Example of all trips
+                  value:
+                  - trip_id: 1
+                    route_id: 1
+                    train_id: EXP001
+                    trip_type: Express
+                    duration: 4h
+                    max_speed_kmh: 80.0
+                  - trip_id: 2
+                    route_id: 2
+                    train_id: SLO002
+                    trip_type: Slow
+                    duration: 6h
+                    max_speed_kmh: 60.0
+    post:
+      tags:
+      - Trips
+      summary: Create a new trip
+      operationId: createTrip
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Trip'
+        required: true
+      responses:
+        "201":
+          description: Trip created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trip'
+              example:
+                trip_id: 3
+                route_id: 3
+                train_id: EXP003
+                trip_type: Express
+                duration: 5h
+                max_speed_kmh: 85.0
+  /trips/{id}:
+    get:
+      tags:
+      - Trips
+      summary: Get a trip by ID
+      operationId: getTripById
+      parameters:
+      - name: id
+        in: path
+        description: ID of the trip to retrieve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: A single trip
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trip'
+              example:
+                trip_id: 1
+                route_id: 1
+                train_id: EXP001
+                trip_type: Express
+                duration: 4h
+                max_speed_kmh: 80.0
+    put:
+      tags:
+      - Trips
+      summary: Update a trip by ID
+      operationId: updateTrip
+      parameters:
+      - name: id
+        in: path
+        description: ID of the trip to update
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Trip'
+        required: true
+      responses:
+        "200":
+          description: Trip updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trip'
+              example:
+                trip_id: 1
+                route_id: 1
+                train_id: EXP001
+                trip_type: Express
+                duration: 4h
+                max_speed_kmh: 80.0
+    delete:
+      tags:
+      - Trips
+      summary: Delete a trip by ID
+      operationId: deleteTrip
+      parameters:
+      - name: id
+        in: path
+        description: ID of the trip to delete
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "204":
+          description: Trip deleted
+  /trip-trains/{id}:
+    get:
+      tags:
+      - Trips
+      summary: Get a trip by Train ID
+      operationId: getTripByTrainId
+      parameters:
+      - name: id
+        in: path
+        description: Train ID to retrieve the trip for
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: A single trip for the given Train ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trip'
+              example:
+                trip_id: 1
+                route_id: 1
+                train_id: EXP001
+                trip_type: Express
+                duration: 4h
+                max_speed_kmh: 80.0
+  /stations:
+    get:
+      tags:
+      - Stations
+      summary: Get all stations
+      operationId: getAllStations
+      responses:
+        "200":
+          description: A list of stations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Station'
+              examples:
+                example1:
+                  summary: Example of all stations
+                  value:
+                  - station_id: ST001
+                    station_name: Colombo Fort
+                    latitude: 6.9335
+                    longitude: 79.8505
+                  - station_id: ST002
+                    station_name: Galle
+                    latitude: 6.0375
+                    longitude: 80.217
+    post:
+      tags:
+      - Stations
+      summary: Create a new station
+      operationId: createStation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Station'
+        required: true
+      responses:
+        "201":
+          description: Station created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Station'
+              example:
+                station_id: ST003
+                station_name: Kandy
+                latitude: 7.2906
+                longitude: 80.6337
+  /stations/{id}:
+    get:
+      tags:
+      - Stations
+      summary: Get a station by ID
+      operationId: getStationById
+      parameters:
+      - name: id
+        in: path
+        description: ID of the station to retrieve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: A single station
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Station'
+              example:
+                station_id: ST001
+                station_name: Colombo Fort
+                latitude: 6.9335
+                longitude: 79.8505
+    put:
+      tags:
+      - Stations
+      summary: Update a station by ID
+      operationId: updateStation
+      parameters:
+      - name: id
+        in: path
+        description: ID of the station to update
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Station'
+        required: true
+      responses:
+        "200":
+          description: Station updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Station'
+              example:
+                station_id: ST001
+                station_name: Colombo Fort
+                latitude: 6.9335
+                longitude: 79.8505
+    delete:
+      tags:
+      - Stations
+      summary: Delete a station by ID
+      operationId: deleteStation
+      parameters:
+      - name: id
+        in: path
+        description: ID of the station to delete
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "204":
+          description: Station deleted
+  /trip-stations:
+    get:
+      tags:
+      - Trip Stations
+      summary: Get all assigned stations for trips
+      operationId: getAllTripStations
+      responses:
+        "200":
+          description: A list of assigned stations for trips
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TripStation'
+              examples:
+                example1:
+                  summary: Example of all assigned stations
+                  value:
+                  - trip_id: 1
+                    station_id: ST001
+                    arrival_time: 08:00:00
+                    departure_time: 08:15:00
+                  - trip_id: 2
+                    station_id: ST002
+                    arrival_time: 10:00:00
+                    departure_time: 10:10:00
+    post:
+      tags:
+      - Trip Stations
+      summary: Assign a station to a trip
+      operationId: assignStation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TripStation'
+        required: true
+      responses:
+        "201":
+          description: Station assigned to trip
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TripStation'
+              example:
+                trip_id: 3
+                station_id: ST003
+                arrival_time: 12:00:00
+                departure_time: 12:20:00
+  /trip-stations/{id}:
+    get:
+      tags:
+      - Trip Stations
+      summary: Get assigned stations for a trip by Trip ID
+      operationId: getStationByTripId
+      parameters:
+      - name: id
+        in: path
+        description: Trip ID to retrieve the assigned stations for
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: A list of assigned stations for the given Trip ID
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TripStation'
+              example:
+              - trip_id: 1
+                station_id: ST001
+                arrival_time: 08:00:00
+                departure_time: 08:15:00
+              - trip_id: 1
+                station_id: ST002
+                arrival_time: 08:30:00
+                departure_time: 08:32:00
+    put:
+      tags:
+      - Trip Stations
+      summary: Update an assigned station for a trip by Trip ID
+      operationId: updateAssignStation
+      parameters:
+      - name: id
+        in: path
+        description: Trip ID to update the assigned station for
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TripStation'
+        required: true
+      responses:
+        "200":
+          description: Assigned station updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TripStation'
+              example:
+                trip_id: 1
+                station_id: ST001
+                arrival_time: 08:00:00
+                departure_time: 08:15:00
+    delete:
+      tags:
+      - Trip Stations
+      summary: Delete an assigned station for a trip by Trip ID
+      operationId: deleteAssignStation
+      parameters:
+      - name: id
+        in: path
+        description: Trip ID to delete the assigned station for
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "204":
+          description: Assigned station deleted
+components:
+  schemas:
+    Schedule:
+      type: object
+      properties:
+        schedule_id:
+          type: integer
+        trip_id:
+          type: integer
+        availability:
+          type: string
+        start_time:
+          type: string
+          format: time
+        end_time:
+          type: string
+          format: time
+    Trip:
+      type: object
+      properties:
+        trip_id:
+          type: integer
+        route_id:
+          type: integer
+        train_id:
+          type: string
+        trip_type:
+          type: string
+        duration:
+          type: string
+        max_speed_kmh:
+          type: number
+          format: decimal
+    Station:
+      type: object
+      properties:
+        station_id:
+          type: string
+        station_name:
+          type: string
+        latitude:
+          type: number
+          format: "decimal(20,17)"
+        longitude:
+          type: number
+          format: "decimal(20,17)"
+    TripStation:
+      type: object
+      properties:
+        trip_id:
+          type: integer
+        station_id:
+          type: string
+        arrival_time:
+          type: string
+          format: time
+        departure_time:
+          type: string
+          format: time

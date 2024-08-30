@@ -1,0 +1,117 @@
+openapi: 3.0.0
+info:
+  title: Data Ingestion Service API
+  description: API documentation for data ingestion and retrieval of GPS data.
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/NIMESHDILANJANA99/ingestion-service/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: http://localhost:3000
+  description: Local server
+paths:
+  /locations:
+    post:
+      tags:
+      - Data Ingestion
+      summary: Ingest new GPS location data
+      operationId: processData
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationData'
+            example:
+              iotDeviceId: 12345
+              location:
+                latitude: 6.927079
+                longitude: 79.861244
+              speed: 45.5
+              timestamp: 2024-08-28T12:00:00Z
+              signalStrength: 75
+              locationName: Colombo Fort
+        required: true
+      responses:
+        "201":
+          description: Data ingested successfully
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Data ingested successfully.
+                data:
+                  id: 64e6b1a8e9b7b9001640a123
+  /gps-data:
+    get:
+      tags:
+      - Data Retrieval
+      summary: Retrieve all GPS location data
+      operationId: getAllTrainGpsData
+      responses:
+        "200":
+          description: List of all GPS location data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LocationData'
+              example:
+              - iotDeviceId: 12345
+                location:
+                  latitude: 6.927079
+                  longitude: 79.861244
+                speed: 45.5
+                timestamp: 2024-08-28T12:00:00Z
+                signalStrength: 75
+                locationName: Colombo Fort
+              - iotDeviceId: 12346
+                location:
+                  latitude: 6.928883
+                  longitude: 79.862444
+                speed: 55.2
+                timestamp: 2024-08-28T12:05:00Z
+                signalStrength: 80
+                locationName: Maradana
+components:
+  schemas:
+    LocationData:
+      required:
+      - iotDeviceId
+      - location
+      - locationName
+      - signalStrength
+      - speed
+      - timestamp
+      type: object
+      properties:
+        iotDeviceId:
+          type: integer
+          description: Unique identifier for the IoT device
+        location:
+          $ref: '#/components/schemas/LocationData_location'
+        speed:
+          type: number
+          description: Speed of the train in km/h
+          format: float
+        timestamp:
+          type: string
+          description: Timestamp of the GPS data
+          format: date-time
+        signalStrength:
+          type: integer
+          description: Signal strength of the GPS device
+        locationName:
+          type: string
+          description: Name of the location
+    LocationData_location:
+      type: object
+      properties:
+        latitude:
+          type: number
+          description: Latitude of the GPS location
+          format: float
+        longitude:
+          type: number
+          description: Longitude of the GPS location
+          format: float
